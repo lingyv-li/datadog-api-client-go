@@ -59,7 +59,15 @@
 
 * `PROFILED_CONTAINER_PERCENTAGE` (value: `"profiled_container_percentage"`)
 
-* `ALL` (value: `"*"`)
+* `DBM_HOST_USAGE` (value: `"dbm_host_usage"`)
+
+* `DBM_HOST_PERCENTAGE` (value: `"dbm_host_percentage"`)
+
+* `ALL` (value: `"dbm_queries_usage"`)
+
+* `DBM_QUERIES_PERCENTAGE` (value: `"dbm_queries_percentage"`)
+
+* `STAR` (value: `"*"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
