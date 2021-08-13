@@ -880,6 +880,46 @@ Class | Method | HTTP request | Description
 
 
 
+### AuthZ
+
+
+- **Type**: OAuth
+- **Flow**: implicit
+- **Authorization URL**: /oauth2/authorize
+- **Scopes**: 
+ - **dashboards_public_share**: The ability to share dashboards externally.
+ - **dashboards_read**: The ability to view dashboards.
+ - **dashboards_write**: The ability to create and change dashboards.
+ - **events_read**: The ability to read events data.
+ - **metrics_read**: The ability to view custom metrics.
+ - **synthetics_global_variable_read**: The ability to view, search and use in tests the list of global variables available for Synthetics.
+ - **synthetics_global_variable_write**: The ability to create, edit, and delete global variables for Synthetics.
+ - **synthetics_private_location_read**: The ability to view, search and use in tests the list of private locations available.
+ - **synthetics_read**: The ability to list and view configured Synthetic tests.
+ - **synthetics_write**: The ability to create, edit, and delete Synthetic tests.
+ - **timeseries_query**: The ability to query timeseries data.
+ - **usage_read**: The ability to view your organization's usage and usage attribution.
+
+Example
+
+```golang
+auth := context.WithValue(context.Background(), sw.ContextAccessToken, "ACCESSTOKENSTRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+Or via OAuth2 module to automatically refresh tokens and perform user authentication.
+
+```golang
+import "golang.org/x/oauth2"
+
+/* Perform OAuth2 round trip request and obtain a token */
+
+tokenSource := oauth2cfg.TokenSource(createContext(httpClient), &token)
+auth := context.WithValue(oauth2.NoContext, sw.ContextOAuth2, tokenSource)
+r, err := client.Service.Operation(auth, args)
+```
+
+
 ### apiKeyAuth
 
 - **Type**: API key
