@@ -21,7 +21,8 @@ type SLOBulkDeleteError struct {
 	Message   string            `json:"message"`
 	Timeframe SLOErrorTimeframe `json:"timeframe"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOBulkDeleteError instantiates a new SLOBulkDeleteError object
@@ -164,17 +165,21 @@ func (o *SLOBulkDeleteError) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Timeframe; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Id = all.Id
 	o.Message = all.Message
 	o.Timeframe = all.Timeframe

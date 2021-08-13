@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogQueryDefinition The log query.
@@ -23,7 +24,8 @@ type LogQueryDefinition struct {
 	MultiCompute *[]LogsQueryCompute       `json:"multi_compute,omitempty"`
 	Search       *LogQueryDefinitionSearch `json:"search,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogQueryDefinition instantiates a new LogQueryDefinition object
@@ -241,9 +243,30 @@ func (o *LogQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Compute; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.GroupBy; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.MultiCompute; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Search; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Compute = all.Compute
 	o.GroupBy = all.GroupBy
 	o.Index = all.Index

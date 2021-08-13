@@ -26,7 +26,8 @@ type AlertGraphWidgetDefinition struct {
 	Type      AlertGraphWidgetDefinitionType `json:"type"`
 	VizType   WidgetVizType                  `json:"viz_type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAlertGraphWidgetDefinition instantiates a new AlertGraphWidgetDefinition object
@@ -315,33 +316,45 @@ func (o *AlertGraphWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Time; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	if v := all.TitleAlign; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.VizType; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AlertId = all.AlertId
 	o.Time = all.Time
 	o.Title = all.Title

@@ -20,7 +20,8 @@ type ServiceLevelObjectiveQuery struct {
 	// A Datadog metric query for good events.
 	Numerator string `json:"numerator"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewServiceLevelObjectiveQuery instantiates a new ServiceLevelObjectiveQuery object
@@ -130,9 +131,11 @@ func (o *ServiceLevelObjectiveQuery) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Denominator = all.Denominator
 	o.Numerator = all.Numerator
 	return nil

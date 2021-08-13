@@ -19,7 +19,8 @@ type LogsQueryOptions struct {
 	// The timezone can be specified both as an offset, for example: \"UTC+03:00\".
 	Timezone *string `json:"timezone,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsQueryOptions instantiates a new LogsQueryOptions object
@@ -133,9 +134,11 @@ func (o *LogsQueryOptions) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.TimeOffset = all.TimeOffset
 	o.Timezone = all.Timezone
 	return nil

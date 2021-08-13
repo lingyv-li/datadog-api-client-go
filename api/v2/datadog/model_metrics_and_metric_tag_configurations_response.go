@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // MetricsAndMetricTagConfigurationsResponse Response object that includes metrics and metric tag configurations.
@@ -17,7 +18,8 @@ type MetricsAndMetricTagConfigurationsResponse struct {
 	// Array of metrics and metric tag configurations.
 	Data *[]MetricsAndMetricTagConfigurations `json:"data,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricsAndMetricTagConfigurationsResponse instantiates a new MetricsAndMetricTagConfigurationsResponse object
@@ -91,9 +93,17 @@ func (o *MetricsAndMetricTagConfigurationsResponse) UnmarshalJSON(bytes []byte) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Data; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Data = all.Data
 	return nil
 }

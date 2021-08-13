@@ -20,7 +20,8 @@ type SyntheticsBasicAuth struct {
 	// Username to use for the basic authentication.
 	Username string `json:"username"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsBasicAuth instantiates a new SyntheticsBasicAuth object
@@ -130,9 +131,11 @@ func (o *SyntheticsBasicAuth) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Password = all.Password
 	o.Username = all.Username
 	return nil

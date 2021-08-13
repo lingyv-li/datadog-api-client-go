@@ -21,7 +21,8 @@ type SyntheticsCoreWebVitals struct {
 	// URL attached to the metrics.
 	Url *string `json:"url,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsCoreWebVitals instantiates a new SyntheticsCoreWebVitals object
@@ -167,9 +168,11 @@ func (o *SyntheticsCoreWebVitals) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Cls = all.Cls
 	o.Lcp = all.Lcp
 	o.Url = all.Url

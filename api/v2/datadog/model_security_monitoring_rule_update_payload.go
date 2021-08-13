@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SecurityMonitoringRuleUpdatePayload Update an existing rule.
@@ -34,7 +35,8 @@ type SecurityMonitoringRuleUpdatePayload struct {
 	// The version of the rule being updated.
 	Version *int32 `json:"version,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringRuleUpdatePayload instantiates a new SecurityMonitoringRuleUpdatePayload object
@@ -432,9 +434,33 @@ func (o *SecurityMonitoringRuleUpdatePayload) UnmarshalJSON(bytes []byte) (err e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Cases; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Filters; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Options; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Queries; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Cases = all.Cases
 	o.Filters = all.Filters
 	o.HasExtendedTitle = all.HasExtendedTitle

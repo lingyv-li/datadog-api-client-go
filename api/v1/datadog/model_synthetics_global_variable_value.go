@@ -19,7 +19,8 @@ type SyntheticsGlobalVariableValue struct {
 	// Value of the global variable. When reading a global variable, the value will not be present if the variable is secure.
 	Value *string `json:"value,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsGlobalVariableValue instantiates a new SyntheticsGlobalVariableValue object
@@ -129,9 +130,11 @@ func (o *SyntheticsGlobalVariableValue) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Secure = all.Secure
 	o.Value = all.Value
 	return nil

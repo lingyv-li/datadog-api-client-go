@@ -18,7 +18,8 @@ type GeomapWidgetDefinitionView struct {
 	// The 2-letter ISO code of a country to focus the map on. Or `WORLD`.
 	Focus string `json:"focus"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewGeomapWidgetDefinitionView instantiates a new GeomapWidgetDefinitionView object
@@ -95,9 +96,11 @@ func (o *GeomapWidgetDefinitionView) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Focus = all.Focus
 	return nil
 }

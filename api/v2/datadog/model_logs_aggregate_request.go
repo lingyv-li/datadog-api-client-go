@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsAggregateRequest The object sent with the request to retrieve a list of logs from your organization.
@@ -22,7 +23,8 @@ type LogsAggregateRequest struct {
 	Options *LogsQueryOptions         `json:"options,omitempty"`
 	Page    *LogsAggregateRequestPage `json:"page,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateRequest instantiates a new LogsAggregateRequest object
@@ -240,9 +242,35 @@ func (o *LogsAggregateRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Compute; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Filter; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.GroupBy; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Options; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Page; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Compute = all.Compute
 	o.Filter = all.Filter
 	o.GroupBy = all.GroupBy

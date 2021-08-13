@@ -44,7 +44,8 @@ type SyntheticsTestRequest struct {
 	// URL to perform the test with.
 	Url *string `json:"url,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTestRequest instantiates a new SyntheticsTestRequest object
@@ -658,17 +659,29 @@ func (o *SyntheticsTestRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.BasicAuth; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Certificate; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	if v := all.Method; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AllowInsecure = all.AllowInsecure
 	o.BasicAuth = all.BasicAuth
 	o.Body = all.Body

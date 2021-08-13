@@ -33,7 +33,8 @@ type SyntheticsTiming struct {
 	// Time spent in millisecond waiting for a response.
 	Wait *float64 `json:"wait,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTiming instantiates a new SyntheticsTiming object
@@ -395,9 +396,11 @@ func (o *SyntheticsTiming) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Dns = all.Dns
 	o.Download = all.Download
 	o.FirstByte = all.FirstByte

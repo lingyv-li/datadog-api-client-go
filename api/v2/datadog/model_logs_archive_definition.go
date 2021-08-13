@@ -21,7 +21,8 @@ type LogsArchiveDefinition struct {
 	// The type of the resource. The value should always be archives.
 	Type string `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsArchiveDefinition instantiates a new LogsArchiveDefinition object
@@ -172,9 +173,14 @@ func (o *LogsArchiveDefinition) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Attributes; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Attributes = all.Attributes
 	o.Id = all.Id
 	o.Type = all.Type

@@ -20,7 +20,8 @@ type SecurityFilterExclusionFilter struct {
 	// Exclusion filter query. Logs that match this query are excluded from the security filter.
 	Query string `json:"query"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityFilterExclusionFilter instantiates a new SecurityFilterExclusionFilter object
@@ -130,9 +131,11 @@ func (o *SecurityFilterExclusionFilter) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Name = all.Name
 	o.Query = all.Query
 	return nil

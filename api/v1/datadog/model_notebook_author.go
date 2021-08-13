@@ -34,7 +34,8 @@ type NotebookAuthor struct {
 	// Whether the user is verified.
 	Verified *bool `json:"verified,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewNotebookAuthor instantiates a new NotebookAuthor object
@@ -396,9 +397,11 @@ func (o *NotebookAuthor) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CreatedAt = all.CreatedAt
 	o.Disabled = all.Disabled
 	o.Email = all.Email

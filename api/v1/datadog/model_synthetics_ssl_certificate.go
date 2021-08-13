@@ -38,7 +38,8 @@ type SyntheticsSSLCertificate struct {
 	// Date until which the SSL certificate is valid.
 	ValidTo *time.Time `json:"validTo,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsSSLCertificate instantiates a new SyntheticsSSLCertificate object
@@ -508,9 +509,19 @@ func (o *SyntheticsSSLCertificate) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Issuer; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Subject; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Cipher = all.Cipher
 	o.Exponent = all.Exponent
 	o.ExtKeyUsage = all.ExtKeyUsage

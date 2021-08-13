@@ -41,7 +41,8 @@ type GCPAccount struct {
 	// The value for service_account found in your JSON service account key.
 	Type *string `json:"type,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewGCPAccount instantiates a new GCPAccount object
@@ -547,9 +548,11 @@ func (o *GCPAccount) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AuthProviderX509CertUrl = all.AuthProviderX509CertUrl
 	o.AuthUri = all.AuthUri
 	o.Automute = all.Automute

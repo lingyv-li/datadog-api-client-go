@@ -18,7 +18,8 @@ type MetricVolumes struct {
 	MetricIngestedIndexedVolume *MetricIngestedIndexedVolume
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // MetricDistinctVolumeAsMetricVolumes is a convenience function that returns MetricDistinctVolume wrapped in MetricVolumes
@@ -73,6 +74,7 @@ func (dst *MetricVolumes) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.MetricDistinctVolume = nil
 		dst.MetricIngestedIndexedVolume = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

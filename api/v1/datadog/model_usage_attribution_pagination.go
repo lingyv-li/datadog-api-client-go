@@ -21,7 +21,8 @@ type UsageAttributionPagination struct {
 	// Total number of records. (deprecated after May 1st, 2021)
 	TotalNumberOfRecords *int64 `json:"total_number_of_records,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageAttributionPagination instantiates a new UsageAttributionPagination object
@@ -167,9 +168,11 @@ func (o *UsageAttributionPagination) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Limit = all.Limit
 	o.NextRecordId = all.NextRecordId
 	o.TotalNumberOfRecords = all.TotalNumberOfRecords

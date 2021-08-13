@@ -17,7 +17,8 @@ type IncidentTimelineCellMarkdownCreateAttributesContent struct {
 	// The Markdown content of the cell.
 	Content *string `json:"content,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentTimelineCellMarkdownCreateAttributesContent instantiates a new IncidentTimelineCellMarkdownCreateAttributesContent object
@@ -91,9 +92,11 @@ func (o *IncidentTimelineCellMarkdownCreateAttributesContent) UnmarshalJSON(byte
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Content = all.Content
 	return nil
 }

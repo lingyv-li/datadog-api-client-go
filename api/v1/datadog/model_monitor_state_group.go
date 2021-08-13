@@ -26,7 +26,8 @@ type MonitorStateGroup struct {
 	Name   *string               `json:"name,omitempty"`
 	Status *MonitorOverallStates `json:"status,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMonitorStateGroup instantiates a new MonitorStateGroup object
@@ -280,17 +281,21 @@ func (o *MonitorStateGroup) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Status; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.LastNodataTs = all.LastNodataTs
 	o.LastNotifiedTs = all.LastNotifiedTs
 	o.LastResolvedTs = all.LastResolvedTs

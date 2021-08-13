@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // AWSAccountListResponse List of enabled AWS accounts.
@@ -17,7 +18,8 @@ type AWSAccountListResponse struct {
 	// List of enabled AWS accounts.
 	Accounts *[]AWSAccount `json:"accounts,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSAccountListResponse instantiates a new AWSAccountListResponse object
@@ -91,9 +93,17 @@ func (o *AWSAccountListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Accounts; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Accounts = all.Accounts
 	return nil
 }

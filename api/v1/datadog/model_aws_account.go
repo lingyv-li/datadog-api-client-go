@@ -31,7 +31,8 @@ type AWSAccount struct {
 	// Your AWS secret access key. Only required if your AWS account is a GovCloud or China account.
 	SecretAccessKey *string `json:"secret_access_key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSAccount instantiates a new AWSAccount object
@@ -357,9 +358,11 @@ func (o *AWSAccount) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccessKeyId = all.AccessKeyId
 	o.AccountId = all.AccountId
 	o.AccountSpecificNamespaceRules = all.AccountSpecificNamespaceRules

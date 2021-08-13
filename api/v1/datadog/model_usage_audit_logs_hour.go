@@ -20,7 +20,8 @@ type UsageAuditLogsHour struct {
 	// The total number of audit logs lines indexed during a given hour.
 	LinesIndexed *int64 `json:"lines_indexed,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageAuditLogsHour instantiates a new UsageAuditLogsHour object
@@ -130,9 +131,11 @@ func (o *UsageAuditLogsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.LinesIndexed = all.LinesIndexed
 	return nil

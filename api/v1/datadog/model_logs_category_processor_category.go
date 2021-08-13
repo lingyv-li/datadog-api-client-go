@@ -18,7 +18,8 @@ type LogsCategoryProcessorCategory struct {
 	// Value to assign to the target attribute.
 	Name *string `json:"name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsCategoryProcessorCategory instantiates a new LogsCategoryProcessorCategory object
@@ -128,9 +129,14 @@ func (o *LogsCategoryProcessorCategory) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Filter; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Filter = all.Filter
 	o.Name = all.Name
 	return nil

@@ -20,7 +20,8 @@ type IncidentUpdateRelationships struct {
 	LastModifiedByUser *RelationshipToUser                         `json:"last_modified_by_user,omitempty"`
 	Postmortem         *RelationshipToIncidentPostmortem           `json:"postmortem,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentUpdateRelationships instantiates a new IncidentUpdateRelationships object
@@ -238,9 +239,30 @@ func (o *IncidentUpdateRelationships) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.CommanderUser; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.CreatedByUser; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Integrations; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.LastModifiedByUser; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Postmortem; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.CommanderUser = all.CommanderUser
 	o.CreatedByUser = all.CreatedByUser
 	o.Integrations = all.Integrations

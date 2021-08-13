@@ -17,7 +17,8 @@ type MetricDistinctVolumeAttributes struct {
 	// Distinct volume for the given metric.
 	DistinctVolume *int64 `json:"distinct_volume,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricDistinctVolumeAttributes instantiates a new MetricDistinctVolumeAttributes object
@@ -91,9 +92,11 @@ func (o *MetricDistinctVolumeAttributes) UnmarshalJSON(bytes []byte) (err error)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.DistinctVolume = all.DistinctVolume
 	return nil
 }

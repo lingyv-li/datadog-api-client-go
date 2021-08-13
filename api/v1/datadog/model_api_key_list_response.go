@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // ApiKeyListResponse List of API and application keys available for a given organization.
@@ -17,7 +18,8 @@ type ApiKeyListResponse struct {
 	// Array of API keys.
 	ApiKeys *[]ApiKey `json:"api_keys,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewApiKeyListResponse instantiates a new ApiKeyListResponse object
@@ -91,9 +93,17 @@ func (o *ApiKeyListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.ApiKeys; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.ApiKeys = all.ApiKeys
 	return nil
 }

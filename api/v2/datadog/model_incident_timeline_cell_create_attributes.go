@@ -17,7 +17,8 @@ type IncidentTimelineCellCreateAttributes struct {
 	IncidentTimelineCellMarkdownCreateAttributes *IncidentTimelineCellMarkdownCreateAttributes
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // IncidentTimelineCellMarkdownCreateAttributesAsIncidentTimelineCellCreateAttributes is a convenience function that returns IncidentTimelineCellMarkdownCreateAttributes wrapped in IncidentTimelineCellCreateAttributes
@@ -49,6 +50,7 @@ func (dst *IncidentTimelineCellCreateAttributes) UnmarshalJSON(data []byte) erro
 	if match != 1 { // more than 1 match
 		// reset to nil
 		dst.IncidentTimelineCellMarkdownCreateAttributes = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

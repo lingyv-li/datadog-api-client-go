@@ -17,7 +17,8 @@ type LogsAggregateRequestPage struct {
 	// The returned paging point to use to get the next results
 	Cursor *string `json:"cursor,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateRequestPage instantiates a new LogsAggregateRequestPage object
@@ -91,9 +92,11 @@ func (o *LogsAggregateRequestPage) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Cursor = all.Cursor
 	return nil
 }

@@ -18,7 +18,8 @@ type MetricsAndMetricTagConfigurations struct {
 	MetricTagConfiguration *MetricTagConfiguration
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // MetricAsMetricsAndMetricTagConfigurations is a convenience function that returns Metric wrapped in MetricsAndMetricTagConfigurations
@@ -73,6 +74,7 @@ func (dst *MetricsAndMetricTagConfigurations) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.Metric = nil
 		dst.MetricTagConfiguration = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

@@ -19,7 +19,8 @@ type SyntheticsTestOptionsRetry struct {
 	// Time interval between retries (in milliseconds). Defaults to 300ms.
 	Interval *float64 `json:"interval,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTestOptionsRetry instantiates a new SyntheticsTestOptionsRetry object
@@ -129,9 +130,11 @@ func (o *SyntheticsTestOptionsRetry) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Count = all.Count
 	o.Interval = all.Interval
 	return nil

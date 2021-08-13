@@ -11,6 +11,7 @@ package datadog
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 )
 
 // IncidentServiceResponse Response with an incident service payload.
@@ -19,7 +20,8 @@ type IncidentServiceResponse struct {
 	// Included objects from relationships.
 	Included *[]IncidentServiceIncludedItems `json:"included,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentServiceResponse instantiates a new IncidentServiceResponse object
@@ -132,9 +134,20 @@ func (o *IncidentServiceResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Included; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Data = all.Data
 	o.Included = all.Included
 	return nil

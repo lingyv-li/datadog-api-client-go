@@ -17,7 +17,8 @@ type CanceledDowntimesIds struct {
 	// ID of downtimes that were canceled.
 	CancelledIds *[]int64 `json:"cancelled_ids,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewCanceledDowntimesIds instantiates a new CanceledDowntimesIds object
@@ -91,9 +92,11 @@ func (o *CanceledDowntimesIds) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CancelledIds = all.CancelledIds
 	return nil
 }

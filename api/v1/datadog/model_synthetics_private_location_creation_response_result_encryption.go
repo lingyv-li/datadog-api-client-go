@@ -19,7 +19,8 @@ type SyntheticsPrivateLocationCreationResponseResultEncryption struct {
 	// Public key for result encryption.
 	Key *string `json:"key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsPrivateLocationCreationResponseResultEncryption instantiates a new SyntheticsPrivateLocationCreationResponseResultEncryption object
@@ -129,9 +130,11 @@ func (o *SyntheticsPrivateLocationCreationResponseResultEncryption) UnmarshalJSO
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Id = all.Id
 	o.Key = all.Key
 	return nil

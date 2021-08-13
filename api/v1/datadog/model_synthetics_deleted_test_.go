@@ -20,7 +20,8 @@ type SyntheticsDeletedTest struct {
 	// The Synthetic test ID deleted.
 	PublicId *string `json:"public_id,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsDeletedTest instantiates a new SyntheticsDeletedTest object
@@ -130,9 +131,11 @@ func (o *SyntheticsDeletedTest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.DeletedAt = all.DeletedAt
 	o.PublicId = all.PublicId
 	return nil

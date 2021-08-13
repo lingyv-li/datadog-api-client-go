@@ -11,6 +11,7 @@ package datadog
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 )
 
 // MetricsPayload The metrics' payload.
@@ -18,7 +19,8 @@ type MetricsPayload struct {
 	// A list of time series to submit to Datadog.
 	Series []Series `json:"series"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricsPayload instantiates a new MetricsPayload object
@@ -95,9 +97,17 @@ func (o *MetricsPayload) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Series; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(v))
+		}
+	}
+
 	o.Series = all.Series
 	return nil
 }

@@ -27,7 +27,8 @@ type MonitorThresholds struct {
 	// The monitor `WARNING` recovery threshold.
 	WarningRecovery NullableFloat64 `json:"warning_recovery,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMonitorThresholds instantiates a new MonitorThresholds object
@@ -336,9 +337,11 @@ func (o *MonitorThresholds) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Critical = all.Critical
 	o.CriticalRecovery = all.CriticalRecovery
 	o.Ok = all.Ok

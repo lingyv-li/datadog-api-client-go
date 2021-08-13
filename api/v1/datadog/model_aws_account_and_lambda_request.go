@@ -20,7 +20,8 @@ type AWSAccountAndLambdaRequest struct {
 	// ARN of the Datadog Lambda created during the Datadog-Amazon Web services Log collection setup.
 	LambdaArn string `json:"lambda_arn"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSAccountAndLambdaRequest instantiates a new AWSAccountAndLambdaRequest object
@@ -130,9 +131,11 @@ func (o *AWSAccountAndLambdaRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccountId = all.AccountId
 	o.LambdaArn = all.LambdaArn
 	return nil

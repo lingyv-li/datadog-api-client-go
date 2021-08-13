@@ -43,7 +43,8 @@ type WidgetDefinition struct {
 	TreeMapWidgetDefinition        *TreeMapWidgetDefinition
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // AlertGraphWidgetDefinitionAsWidgetDefinition is a convenience function that returns AlertGraphWidgetDefinition wrapped in WidgetDefinition
@@ -673,6 +674,7 @@ func (dst *WidgetDefinition) UnmarshalJSON(data []byte) error {
 		dst.TimeseriesWidgetDefinition = nil
 		dst.ToplistWidgetDefinition = nil
 		dst.TreeMapWidgetDefinition = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

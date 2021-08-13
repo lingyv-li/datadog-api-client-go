@@ -17,7 +17,8 @@ type SecurityMonitoringSignalsListResponseMetaPage struct {
 	// The cursor used to get the next results, if any. To make the next request, use the same parameters with the addition of the `page[cursor]`.
 	After *string `json:"after,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringSignalsListResponseMetaPage instantiates a new SecurityMonitoringSignalsListResponseMetaPage object
@@ -91,9 +92,11 @@ func (o *SecurityMonitoringSignalsListResponseMetaPage) UnmarshalJSON(bytes []by
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.After = all.After
 	return nil
 }

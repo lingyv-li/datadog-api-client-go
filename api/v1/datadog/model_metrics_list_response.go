@@ -19,7 +19,8 @@ type MetricsListResponse struct {
 	// List of metric names.
 	Metrics *[]string `json:"metrics,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricsListResponse instantiates a new MetricsListResponse object
@@ -129,9 +130,11 @@ func (o *MetricsListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.From = all.From
 	o.Metrics = all.Metrics
 	return nil

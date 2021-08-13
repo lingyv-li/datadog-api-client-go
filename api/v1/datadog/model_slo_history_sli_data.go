@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SLOHistorySLIData An object that holds an SLI value and its associated data. It can represent an SLO's overall SLI value. This can also represent the SLI value for a specific monitor in multi-monitor SLOs, or a group in grouped SLOs.
@@ -39,7 +40,8 @@ type SLOHistorySLIData struct {
 	// Use `sli_value` instead.
 	Uptime *float64 `json:"uptime,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOHistorySLIData instantiates a new SLOHistorySLIData object
@@ -509,9 +511,23 @@ func (o *SLOHistorySLIData) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Errors; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.History; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.ErrorBudgetRemaining = all.ErrorBudgetRemaining
 	o.Errors = all.Errors
 	o.Group = all.Group

@@ -20,7 +20,8 @@ type AWSTagFilterCreateRequest struct {
 	// The tag filter string.
 	TagFilterStr *string `json:"tag_filter_str,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSTagFilterCreateRequest instantiates a new AWSTagFilterCreateRequest object
@@ -166,17 +167,21 @@ func (o *AWSTagFilterCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Namespace; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccountId = all.AccountId
 	o.Namespace = all.Namespace
 	o.TagFilterStr = all.TagFilterStr

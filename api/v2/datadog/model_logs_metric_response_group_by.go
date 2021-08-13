@@ -19,7 +19,8 @@ type LogsMetricResponseGroupBy struct {
 	// Eventual name of the tag that gets created. By default, the path attribute is used as the tag name.
 	TagName *string `json:"tag_name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsMetricResponseGroupBy instantiates a new LogsMetricResponseGroupBy object
@@ -129,9 +130,11 @@ func (o *LogsMetricResponseGroupBy) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Path = all.Path
 	o.TagName = all.TagName
 	return nil

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsByRetention Object containing logs usage data broken down by retention period.
@@ -19,7 +20,8 @@ type LogsByRetention struct {
 	Usage        *[]LogsRetentionAggSumUsage  `json:"usage,omitempty"`
 	UsageByMonth *LogsByRetentionMonthlyUsage `json:"usage_by_month,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsByRetention instantiates a new LogsByRetention object
@@ -165,9 +167,24 @@ func (o *LogsByRetention) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Orgs; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.UsageByMonth; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Orgs = all.Orgs
 	o.Usage = all.Usage
 	o.UsageByMonth = all.UsageByMonth

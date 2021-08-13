@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // HostListResponse Response with Host information from Datadog.
@@ -21,7 +22,8 @@ type HostListResponse struct {
 	// Number of host returned.
 	TotalReturned *int64 `json:"total_returned,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHostListResponse instantiates a new HostListResponse object
@@ -167,9 +169,17 @@ func (o *HostListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.HostList; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.HostList = all.HostList
 	o.TotalMatching = all.TotalMatching
 	o.TotalReturned = all.TotalReturned

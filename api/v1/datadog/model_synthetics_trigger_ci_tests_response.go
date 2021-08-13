@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsTriggerCITestsResponse Object containing information about the tests triggered.
@@ -21,7 +22,8 @@ type SyntheticsTriggerCITestsResponse struct {
 	// The public IDs of the Synthetics test triggered.
 	TriggeredCheckIds *[]string `json:"triggered_check_ids,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTriggerCITestsResponse instantiates a new SyntheticsTriggerCITestsResponse object
@@ -167,9 +169,23 @@ func (o *SyntheticsTriggerCITestsResponse) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Locations; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Results; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Locations = all.Locations
 	o.Results = all.Results
 	o.TriggeredCheckIds = all.TriggeredCheckIds

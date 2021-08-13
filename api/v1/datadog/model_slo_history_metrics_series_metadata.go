@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SLOHistoryMetricsSeriesMetadata Query metadata.
@@ -27,7 +28,8 @@ type SLOHistoryMetricsSeriesMetadata struct {
 	// An array of metric units that contains up to two unit objects. For example, bytes represents one unit object and bytes per second represents two unit objects. If a metric query only has one unit object, the second array element is null.
 	Unit []SLOHistoryMetricsSeriesMetadataUnit `json:"unit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOHistoryMetricsSeriesMetadata instantiates a new SLOHistoryMetricsSeriesMetadata object
@@ -282,9 +284,17 @@ func (o *SLOHistoryMetricsSeriesMetadata) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Unit; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(v))
+		}
+	}
+
 	o.Aggr = all.Aggr
 	o.Expression = all.Expression
 	o.Metric = all.Metric

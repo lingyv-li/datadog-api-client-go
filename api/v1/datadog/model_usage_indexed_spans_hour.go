@@ -20,7 +20,8 @@ type UsageIndexedSpansHour struct {
 	// Contains the number of spans indexed.
 	IndexedEventsCount *int64 `json:"indexed_events_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageIndexedSpansHour instantiates a new UsageIndexedSpansHour object
@@ -130,9 +131,11 @@ func (o *UsageIndexedSpansHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.IndexedEventsCount = all.IndexedEventsCount
 	return nil

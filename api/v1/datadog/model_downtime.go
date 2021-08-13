@@ -47,7 +47,8 @@ type Downtime struct {
 	// ID of the last user that updated the downtime.
 	UpdaterId NullableInt32 `json:"updater_id,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDowntime instantiates a new Downtime object
@@ -774,9 +775,19 @@ func (o *Downtime) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.ActiveChild.Get(); !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Recurrence.Get(); !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Active = all.Active
 	o.ActiveChild = all.ActiveChild
 	o.Canceled = all.Canceled

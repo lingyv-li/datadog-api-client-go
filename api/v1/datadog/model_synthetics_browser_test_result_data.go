@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsBrowserTestResultData Object containing results for your Synthetic browser test.
@@ -36,7 +37,8 @@ type SyntheticsBrowserTestResultData struct {
 	// Time in second to wait before the browser test starts after reaching the start URL.
 	TimeToInteractive *float64 `json:"timeToInteractive,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsBrowserTestResultData instantiates a new SyntheticsBrowserTestResultData object
@@ -470,9 +472,21 @@ func (o *SyntheticsBrowserTestResultData) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Device; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.StepDetails; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.BrowserType = all.BrowserType
 	o.BrowserVersion = all.BrowserVersion
 	o.Device = all.Device

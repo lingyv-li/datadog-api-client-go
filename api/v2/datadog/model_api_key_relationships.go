@@ -17,7 +17,8 @@ type APIKeyRelationships struct {
 	CreatedBy  *RelationshipToUser `json:"created_by,omitempty"`
 	ModifiedBy *RelationshipToUser `json:"modified_by,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAPIKeyRelationships instantiates a new APIKeyRelationships object
@@ -127,9 +128,18 @@ func (o *APIKeyRelationships) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.CreatedBy; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.ModifiedBy; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.CreatedBy = all.CreatedBy
 	o.ModifiedBy = all.ModifiedBy
 	return nil

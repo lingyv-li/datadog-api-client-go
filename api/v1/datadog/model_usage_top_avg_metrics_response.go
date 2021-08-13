@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // UsageTopAvgMetricsResponse Response containing the number of hourly recorded custom metrics for a given organization.
@@ -18,7 +19,8 @@ type UsageTopAvgMetricsResponse struct {
 	// Number of hourly recorded custom metrics for a given organization.
 	Usage *[]UsageTopAvgMetricsHour `json:"usage,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageTopAvgMetricsResponse instantiates a new UsageTopAvgMetricsResponse object
@@ -128,9 +130,20 @@ func (o *UsageTopAvgMetricsResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Metadata; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Metadata = all.Metadata
 	o.Usage = all.Usage
 	return nil

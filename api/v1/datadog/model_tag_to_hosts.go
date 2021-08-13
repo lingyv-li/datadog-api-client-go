@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // TagToHosts In this object, the key is the tag, the value is a list of host names that are reporting that tag.
@@ -17,7 +18,8 @@ type TagToHosts struct {
 	// A list of tags to apply to the host.
 	Tags *map[string][]string `json:"tags,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewTagToHosts instantiates a new TagToHosts object
@@ -91,9 +93,17 @@ func (o *TagToHosts) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Tags; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Tags = all.Tags
 	return nil
 }

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 	"time"
 )
 
@@ -102,7 +103,8 @@ type UsageSummaryDate struct {
 	// Shows the 99th percentile of all vSphere hosts over all hours in the current date for all organizations.
 	VsphereHostTop99p *int64 `json:"vsphere_host_top99p,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSummaryDate instantiates a new UsageSummaryDate object
@@ -1688,9 +1690,17 @@ func (o *UsageSummaryDate) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Orgs; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.AgentHostTop99p = all.AgentHostTop99p
 	o.ApmAzureAppServiceHostTop99p = all.ApmAzureAppServiceHostTop99p
 	o.ApmHostTop99p = all.ApmHostTop99p

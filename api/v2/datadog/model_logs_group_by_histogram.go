@@ -22,7 +22,8 @@ type LogsGroupByHistogram struct {
 	// The minimum value for the measure used in the histogram (values smaller than this one are filtered out)
 	Min float64 `json:"min"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsGroupByHistogram instantiates a new LogsGroupByHistogram object
@@ -165,9 +166,11 @@ func (o *LogsGroupByHistogram) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Interval = all.Interval
 	o.Max = all.Max
 	o.Min = all.Min

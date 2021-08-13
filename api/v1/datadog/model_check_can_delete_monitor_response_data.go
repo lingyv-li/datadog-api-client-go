@@ -17,7 +17,8 @@ type CheckCanDeleteMonitorResponseData struct {
 	// An array of of Monitor IDs that can be safely deleted.
 	Ok *[]int64 `json:"ok,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewCheckCanDeleteMonitorResponseData instantiates a new CheckCanDeleteMonitorResponseData object
@@ -91,9 +92,11 @@ func (o *CheckCanDeleteMonitorResponseData) UnmarshalJSON(bytes []byte) (err err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Ok = all.Ok
 	return nil
 }

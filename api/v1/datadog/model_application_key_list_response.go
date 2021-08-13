@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // ApplicationKeyListResponse An application key response.
@@ -17,7 +18,8 @@ type ApplicationKeyListResponse struct {
 	// Array of application keys.
 	ApplicationKeys *[]ApplicationKey `json:"application_keys,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewApplicationKeyListResponse instantiates a new ApplicationKeyListResponse object
@@ -91,9 +93,17 @@ func (o *ApplicationKeyListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.ApplicationKeys; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.ApplicationKeys = all.ApplicationKeys
 	return nil
 }

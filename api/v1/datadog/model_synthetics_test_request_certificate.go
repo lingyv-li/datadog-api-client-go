@@ -17,7 +17,8 @@ type SyntheticsTestRequestCertificate struct {
 	Cert *SyntheticsTestRequestCertificateItem `json:"cert,omitempty"`
 	Key  *SyntheticsTestRequestCertificateItem `json:"key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTestRequestCertificate instantiates a new SyntheticsTestRequestCertificate object
@@ -127,9 +128,18 @@ func (o *SyntheticsTestRequestCertificate) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Cert; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Key; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Cert = all.Cert
 	o.Key = all.Key
 	return nil

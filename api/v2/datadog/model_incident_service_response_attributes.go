@@ -22,7 +22,8 @@ type IncidentServiceResponseAttributes struct {
 	// Name of the incident service.
 	Name *string `json:"name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentServiceResponseAttributes instantiates a new IncidentServiceResponseAttributes object
@@ -168,9 +169,11 @@ func (o *IncidentServiceResponseAttributes) UnmarshalJSON(bytes []byte) (err err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Created = all.Created
 	o.Modified = all.Modified
 	o.Name = all.Name

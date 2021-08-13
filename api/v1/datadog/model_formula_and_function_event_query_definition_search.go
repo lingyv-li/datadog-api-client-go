@@ -18,7 +18,8 @@ type FormulaAndFunctionEventQueryDefinitionSearch struct {
 	// Events search string.
 	Query string `json:"query"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewFormulaAndFunctionEventQueryDefinitionSearch instantiates a new FormulaAndFunctionEventQueryDefinitionSearch object
@@ -95,9 +96,11 @@ func (o *FormulaAndFunctionEventQueryDefinitionSearch) UnmarshalJSON(bytes []byt
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Query = all.Query
 	return nil
 }

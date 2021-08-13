@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SecurityMonitoringListRulesResponse List of rules.
@@ -18,7 +19,8 @@ type SecurityMonitoringListRulesResponse struct {
 	Data *[]SecurityMonitoringRuleResponse `json:"data,omitempty"`
 	Meta *ResponseMetaAttributes           `json:"meta,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringListRulesResponse instantiates a new SecurityMonitoringListRulesResponse object
@@ -128,9 +130,21 @@ func (o *SecurityMonitoringListRulesResponse) UnmarshalJSON(bytes []byte) (err e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Data; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Meta; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	o.Meta = all.Meta
 	return nil

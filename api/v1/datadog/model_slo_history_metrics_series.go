@@ -23,7 +23,8 @@ type SLOHistoryMetricsSeries struct {
 	// The query values for each metric.
 	Values []float64 `json:"values"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOHistoryMetricsSeries instantiates a new SLOHistoryMetricsSeries object
@@ -199,9 +200,15 @@ func (o *SLOHistoryMetricsSeries) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Metadata; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Count = all.Count
 	o.Metadata = all.Metadata
 	o.Sum = all.Sum

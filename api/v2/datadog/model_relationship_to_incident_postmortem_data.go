@@ -19,7 +19,8 @@ type RelationshipToIncidentPostmortemData struct {
 	Id   string                 `json:"id"`
 	Type IncidentPostmortemType `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewRelationshipToIncidentPostmortemData instantiates a new RelationshipToIncidentPostmortemData object
@@ -131,17 +132,21 @@ func (o *RelationshipToIncidentPostmortemData) UnmarshalJSON(bytes []byte) (err 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Id = all.Id
 	o.Type = all.Type
 	return nil

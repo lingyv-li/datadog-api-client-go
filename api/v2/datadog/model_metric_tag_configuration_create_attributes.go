@@ -21,7 +21,8 @@ type MetricTagConfigurationCreateAttributes struct {
 	// A list of tag keys that will be queryable for your metric.
 	Tags []string `json:"tags"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricTagConfigurationCreateAttributes instantiates a new MetricTagConfigurationCreateAttributes object
@@ -173,17 +174,21 @@ func (o *MetricTagConfigurationCreateAttributes) UnmarshalJSON(bytes []byte) (er
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.MetricType; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IncludePercentiles = all.IncludePercentiles
 	o.MetricType = all.MetricType
 	o.Tags = all.Tags

@@ -21,7 +21,8 @@ type FormulaAndFunctionEventQueryDefinitionCompute struct {
 	// Measurable attribute to compute.
 	Metric *string `json:"metric,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewFormulaAndFunctionEventQueryDefinitionCompute instantiates a new FormulaAndFunctionEventQueryDefinitionCompute object
@@ -170,6 +171,7 @@ func (o *FormulaAndFunctionEventQueryDefinitionCompute) UnmarshalJSON(bytes []by
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -178,9 +180,11 @@ func (o *FormulaAndFunctionEventQueryDefinitionCompute) UnmarshalJSON(bytes []by
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Aggregation = all.Aggregation
 	o.Interval = all.Interval
 	o.Metric = all.Metric

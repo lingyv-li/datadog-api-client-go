@@ -25,7 +25,8 @@ type LogsArchiveCreateRequestAttributes struct {
 	// An array of tags to add to rehydrated logs from an archive.
 	RehydrationTags *[]string `json:"rehydration_tags,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsArchiveCreateRequestAttributes instantiates a new LogsArchiveCreateRequestAttributes object
@@ -244,9 +245,14 @@ func (o *LogsArchiveCreateRequestAttributes) UnmarshalJSON(bytes []byte) (err er
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Destination; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Destination = all.Destination
 	o.IncludeTags = all.IncludeTags
 	o.Name = all.Name

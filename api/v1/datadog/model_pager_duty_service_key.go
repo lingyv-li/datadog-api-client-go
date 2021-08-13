@@ -18,7 +18,8 @@ type PagerDutyServiceKey struct {
 	// Your service key in PagerDuty.
 	ServiceKey string `json:"service_key"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPagerDutyServiceKey instantiates a new PagerDutyServiceKey object
@@ -95,9 +96,11 @@ func (o *PagerDutyServiceKey) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ServiceKey = all.ServiceKey
 	return nil
 }

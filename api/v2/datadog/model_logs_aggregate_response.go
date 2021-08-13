@@ -17,7 +17,8 @@ type LogsAggregateResponse struct {
 	Data *LogsAggregateResponseData `json:"data,omitempty"`
 	Meta *LogsResponseMetadata      `json:"meta,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateResponse instantiates a new LogsAggregateResponse object
@@ -127,9 +128,18 @@ func (o *LogsAggregateResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Meta; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	o.Meta = all.Meta
 	return nil

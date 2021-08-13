@@ -16,7 +16,8 @@ import (
 type ApplicationKeyResponse struct {
 	ApplicationKey *ApplicationKey `json:"application_key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewApplicationKeyResponse instantiates a new ApplicationKeyResponse object
@@ -90,9 +91,14 @@ func (o *ApplicationKeyResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.ApplicationKey; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.ApplicationKey = all.ApplicationKey
 	return nil
 }

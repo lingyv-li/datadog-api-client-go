@@ -22,7 +22,8 @@ type NotebookCellCreateRequestAttributes struct {
 	NotebookToplistCellAttributes      *NotebookToplistCellAttributes
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // NotebookDistributionCellAttributesAsNotebookCellCreateRequestAttributes is a convenience function that returns NotebookDistributionCellAttributes wrapped in NotebookCellCreateRequestAttributes
@@ -169,6 +170,7 @@ func (dst *NotebookCellCreateRequestAttributes) UnmarshalJSON(data []byte) error
 		dst.NotebookMarkdownCellAttributes = nil
 		dst.NotebookTimeseriesCellAttributes = nil
 		dst.NotebookToplistCellAttributes = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

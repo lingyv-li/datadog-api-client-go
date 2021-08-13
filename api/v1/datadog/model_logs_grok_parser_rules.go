@@ -20,7 +20,8 @@ type LogsGrokParserRules struct {
 	// List of support rules for the grok parser, separated by a new line.
 	SupportRules *string `json:"support_rules,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsGrokParserRules instantiates a new LogsGrokParserRules object
@@ -137,9 +138,11 @@ func (o *LogsGrokParserRules) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.MatchRules = all.MatchRules
 	o.SupportRules = all.SupportRules
 	return nil

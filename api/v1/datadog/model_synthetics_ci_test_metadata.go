@@ -17,7 +17,8 @@ type SyntheticsCITestMetadata struct {
 	Ci  *SyntheticsCITestMetadataCi  `json:"ci,omitempty"`
 	Git *SyntheticsCITestMetadataGit `json:"git,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsCITestMetadata instantiates a new SyntheticsCITestMetadata object
@@ -127,9 +128,18 @@ func (o *SyntheticsCITestMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Ci; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Git; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Ci = all.Ci
 	o.Git = all.Git
 	return nil

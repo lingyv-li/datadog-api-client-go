@@ -17,7 +17,8 @@ import (
 type SecurityFilterCreateRequest struct {
 	Data SecurityFilterCreateData `json:"data"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityFilterCreateRequest instantiates a new SecurityFilterCreateRequest object
@@ -94,9 +95,14 @@ func (o *SecurityFilterCreateRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	return nil
 }

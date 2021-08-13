@@ -19,7 +19,8 @@ type SecurityMonitoringSignalListRequestPage struct {
 	// The maximum number of security signals in the response.
 	Limit *int32 `json:"limit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringSignalListRequestPage instantiates a new SecurityMonitoringSignalListRequestPage object
@@ -133,9 +134,11 @@ func (o *SecurityMonitoringSignalListRequestPage) UnmarshalJSON(bytes []byte) (e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Cursor = all.Cursor
 	o.Limit = all.Limit
 	return nil

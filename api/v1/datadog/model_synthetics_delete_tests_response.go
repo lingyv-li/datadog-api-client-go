@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsDeleteTestsResponse Response object for deleting Synthetic tests.
@@ -17,7 +18,8 @@ type SyntheticsDeleteTestsResponse struct {
 	// Array of objects containing a deleted Synthetic test ID with the associated deletion timestamp.
 	DeletedTests *[]SyntheticsDeletedTest `json:"deleted_tests,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsDeleteTestsResponse instantiates a new SyntheticsDeleteTestsResponse object
@@ -91,9 +93,17 @@ func (o *SyntheticsDeleteTestsResponse) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.DeletedTests; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.DeletedTests = all.DeletedTests
 	return nil
 }

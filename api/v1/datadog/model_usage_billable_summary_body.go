@@ -30,7 +30,8 @@ type UsageBillableSummaryBody struct {
 	// Units pertaining to the usage.
 	UsageUnit *string `json:"usage_unit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageBillableSummaryBody instantiates a new UsageBillableSummaryBody object
@@ -320,9 +321,11 @@ func (o *UsageBillableSummaryBody) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccountBillableUsage = all.AccountBillableUsage
 	o.ElapsedUsageHours = all.ElapsedUsageHours
 	o.FirstBillableUsageHour = all.FirstBillableUsageHour

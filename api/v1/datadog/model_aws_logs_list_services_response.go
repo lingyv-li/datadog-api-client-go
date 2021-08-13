@@ -19,7 +19,8 @@ type AWSLogsListServicesResponse struct {
 	// Name of service available for configuration with Datadog logs.
 	Label *string `json:"label,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSLogsListServicesResponse instantiates a new AWSLogsListServicesResponse object
@@ -129,9 +130,11 @@ func (o *AWSLogsListServicesResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Id = all.Id
 	o.Label = all.Label
 	return nil

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsListTestsResponse Object containing an array of Synthetic tests configuration.
@@ -17,7 +18,8 @@ type SyntheticsListTestsResponse struct {
 	// Array of Synthetic tests configuration.
 	Tests *[]SyntheticsTestDetails `json:"tests,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsListTestsResponse instantiates a new SyntheticsListTestsResponse object
@@ -91,9 +93,17 @@ func (o *SyntheticsListTestsResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Tests; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Tests = all.Tests
 	return nil
 }

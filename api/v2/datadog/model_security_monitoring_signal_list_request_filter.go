@@ -22,7 +22,8 @@ type SecurityMonitoringSignalListRequestFilter struct {
 	// The maximum timestamp for requested security signals.
 	To *time.Time `json:"to,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringSignalListRequestFilter instantiates a new SecurityMonitoringSignalListRequestFilter object
@@ -168,9 +169,11 @@ func (o *SecurityMonitoringSignalListRequestFilter) UnmarshalJSON(bytes []byte) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.From = all.From
 	o.Query = all.Query
 	o.To = all.To

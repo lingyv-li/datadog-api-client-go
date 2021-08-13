@@ -24,7 +24,8 @@ type ProcessQueryDefinition struct {
 	// Your chosen search term.
 	SearchBy *string `json:"search_by,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewProcessQueryDefinition instantiates a new ProcessQueryDefinition object
@@ -209,9 +210,11 @@ func (o *ProcessQueryDefinition) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.FilterBy = all.FilterBy
 	o.Limit = all.Limit
 	o.Metric = all.Metric

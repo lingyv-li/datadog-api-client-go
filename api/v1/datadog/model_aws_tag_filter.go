@@ -18,7 +18,8 @@ type AWSTagFilter struct {
 	// The tag filter string.
 	TagFilterStr *string `json:"tag_filter_str,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSTagFilter instantiates a new AWSTagFilter object
@@ -128,6 +129,7 @@ func (o *AWSTagFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -136,9 +138,11 @@ func (o *AWSTagFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Namespace = all.Namespace
 	o.TagFilterStr = all.TagFilterStr
 	return nil

@@ -21,7 +21,8 @@ type SyntheticsTestRequestCertificateItem struct {
 	// Date of update of the certificate or key, ISO format.
 	UpdatedAt *string `json:"updatedAt,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTestRequestCertificateItem instantiates a new SyntheticsTestRequestCertificateItem object
@@ -167,9 +168,11 @@ func (o *SyntheticsTestRequestCertificateItem) UnmarshalJSON(bytes []byte) (err 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Content = all.Content
 	o.Filename = all.Filename
 	o.UpdatedAt = all.UpdatedAt

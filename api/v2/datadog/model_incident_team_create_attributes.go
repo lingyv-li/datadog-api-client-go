@@ -18,7 +18,8 @@ type IncidentTeamCreateAttributes struct {
 	// Name of the incident team.
 	Name string `json:"name"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentTeamCreateAttributes instantiates a new IncidentTeamCreateAttributes object
@@ -95,9 +96,11 @@ func (o *IncidentTeamCreateAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Name = all.Name
 	return nil
 }

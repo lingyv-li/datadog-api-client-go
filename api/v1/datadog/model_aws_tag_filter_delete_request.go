@@ -18,7 +18,8 @@ type AWSTagFilterDeleteRequest struct {
 	AccountId *string       `json:"account_id,omitempty"`
 	Namespace *AWSNamespace `json:"namespace,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSTagFilterDeleteRequest instantiates a new AWSTagFilterDeleteRequest object
@@ -128,17 +129,21 @@ func (o *AWSTagFilterDeleteRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Namespace; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccountId = all.AccountId
 	o.Namespace = all.Namespace
 	return nil

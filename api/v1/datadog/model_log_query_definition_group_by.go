@@ -21,7 +21,8 @@ type LogQueryDefinitionGroupBy struct {
 	Limit *int64                         `json:"limit,omitempty"`
 	Sort  *LogQueryDefinitionGroupBySort `json:"sort,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogQueryDefinitionGroupBy instantiates a new LogQueryDefinitionGroupBy object
@@ -170,9 +171,15 @@ func (o *LogQueryDefinitionGroupBy) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Sort; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Facet = all.Facet
 	o.Limit = all.Limit
 	o.Sort = all.Sort

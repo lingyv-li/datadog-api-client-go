@@ -23,7 +23,8 @@ type SyntheticsBrowserError struct {
 	Status *int64                     `json:"status,omitempty"`
 	Type   SyntheticsBrowserErrorType `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsBrowserError instantiates a new SyntheticsBrowserError object
@@ -202,17 +203,21 @@ func (o *SyntheticsBrowserError) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Description = all.Description
 	o.Name = all.Name
 	o.Status = all.Status

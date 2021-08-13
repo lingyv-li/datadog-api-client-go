@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsListGlobalVariablesResponse Object containing an array of Synthetic global variables.
@@ -17,7 +18,8 @@ type SyntheticsListGlobalVariablesResponse struct {
 	// Array of Synthetic global variables.
 	Variables *[]SyntheticsGlobalVariable `json:"variables,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsListGlobalVariablesResponse instantiates a new SyntheticsListGlobalVariablesResponse object
@@ -91,9 +93,17 @@ func (o *SyntheticsListGlobalVariablesResponse) UnmarshalJSON(bytes []byte) (err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Variables; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Variables = all.Variables
 	return nil
 }

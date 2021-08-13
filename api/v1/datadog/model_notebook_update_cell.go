@@ -18,7 +18,8 @@ type NotebookUpdateCell struct {
 	NotebookCellUpdateRequest *NotebookCellUpdateRequest
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // NotebookCellCreateRequestAsNotebookUpdateCell is a convenience function that returns NotebookCellCreateRequest wrapped in NotebookUpdateCell
@@ -73,6 +74,7 @@ func (dst *NotebookUpdateCell) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.NotebookCellCreateRequest = nil
 		dst.NotebookCellUpdateRequest = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

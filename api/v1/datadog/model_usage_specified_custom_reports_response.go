@@ -17,7 +17,8 @@ type UsageSpecifiedCustomReportsResponse struct {
 	Data *UsageSpecifiedCustomReportsData `json:"data,omitempty"`
 	Meta *UsageSpecifiedCustomReportsMeta `json:"meta,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSpecifiedCustomReportsResponse instantiates a new UsageSpecifiedCustomReportsResponse object
@@ -127,9 +128,18 @@ func (o *UsageSpecifiedCustomReportsResponse) UnmarshalJSON(bytes []byte) (err e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Meta; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	o.Meta = all.Meta
 	return nil

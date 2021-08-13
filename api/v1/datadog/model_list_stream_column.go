@@ -19,7 +19,8 @@ type ListStreamColumn struct {
 	Field string                `json:"field"`
 	Width ListStreamColumnWidth `json:"width"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewListStreamColumn instantiates a new ListStreamColumn object
@@ -129,17 +130,21 @@ func (o *ListStreamColumn) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Width; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Field = all.Field
 	o.Width = all.Width
 	return nil

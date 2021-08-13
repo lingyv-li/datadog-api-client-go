@@ -17,7 +17,8 @@ type SyntheticsTestOptionsMonitorOptions struct {
 	// Time interval before renotifying if the test is still failing (in minutes).
 	RenotifyInterval *int64 `json:"renotify_interval,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsTestOptionsMonitorOptions instantiates a new SyntheticsTestOptionsMonitorOptions object
@@ -91,9 +92,11 @@ func (o *SyntheticsTestOptionsMonitorOptions) UnmarshalJSON(bytes []byte) (err e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.RenotifyInterval = all.RenotifyInterval
 	return nil
 }

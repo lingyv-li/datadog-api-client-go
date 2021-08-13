@@ -31,7 +31,8 @@ type LogsProcessor struct {
 	LogsUserAgentParser        *LogsUserAgentParser
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // LogsArithmeticProcessorAsLogsProcessor is a convenience function that returns LogsArithmeticProcessor wrapped in LogsProcessor
@@ -385,6 +386,7 @@ func (dst *LogsProcessor) UnmarshalJSON(data []byte) error {
 		dst.LogsTraceRemapper = nil
 		dst.LogsURLParser = nil
 		dst.LogsUserAgentParser = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

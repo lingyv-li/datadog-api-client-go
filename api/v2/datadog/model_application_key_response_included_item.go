@@ -18,7 +18,8 @@ type ApplicationKeyResponseIncludedItem struct {
 	User *User
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // RoleAsApplicationKeyResponseIncludedItem is a convenience function that returns Role wrapped in ApplicationKeyResponseIncludedItem
@@ -73,6 +74,7 @@ func (dst *ApplicationKeyResponseIncludedItem) UnmarshalJSON(data []byte) error 
 		// reset to nil
 		dst.Role = nil
 		dst.User = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

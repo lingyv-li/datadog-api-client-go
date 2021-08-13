@@ -32,7 +32,8 @@ type OrganizationAttributes struct {
 	// URL of the site that this organization exists at.
 	Url *string `json:"url,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewOrganizationAttributes instantiates a new OrganizationAttributes object
@@ -358,9 +359,11 @@ func (o *OrganizationAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CreatedAt = all.CreatedAt
 	o.Description = all.Description
 	o.Disabled = all.Disabled

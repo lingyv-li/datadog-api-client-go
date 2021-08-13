@@ -20,7 +20,8 @@ type GeomapWidgetDefinitionStyle struct {
 	// Whether to flip the palette tones.
 	PaletteFlip bool `json:"palette_flip"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewGeomapWidgetDefinitionStyle instantiates a new GeomapWidgetDefinitionStyle object
@@ -130,9 +131,11 @@ func (o *GeomapWidgetDefinitionStyle) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Palette = all.Palette
 	o.PaletteFlip = all.PaletteFlip
 	return nil

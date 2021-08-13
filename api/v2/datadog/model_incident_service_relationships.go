@@ -17,7 +17,8 @@ type IncidentServiceRelationships struct {
 	CreatedBy      *RelationshipToUser `json:"created_by,omitempty"`
 	LastModifiedBy *RelationshipToUser `json:"last_modified_by,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentServiceRelationships instantiates a new IncidentServiceRelationships object
@@ -127,9 +128,18 @@ func (o *IncidentServiceRelationships) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.CreatedBy; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.LastModifiedBy; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.CreatedBy = all.CreatedBy
 	o.LastModifiedBy = all.LastModifiedBy
 	return nil

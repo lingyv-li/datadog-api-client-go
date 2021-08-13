@@ -20,7 +20,8 @@ type LogsArchiveIntegrationGCS struct {
 	// A project ID.
 	ProjectId string `json:"project_id"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsArchiveIntegrationGCS instantiates a new LogsArchiveIntegrationGCS object
@@ -130,9 +131,11 @@ func (o *LogsArchiveIntegrationGCS) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ClientEmail = all.ClientEmail
 	o.ProjectId = all.ProjectId
 	return nil

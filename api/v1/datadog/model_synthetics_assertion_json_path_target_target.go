@@ -21,7 +21,8 @@ type SyntheticsAssertionJSONPathTargetTarget struct {
 	// The path target value to compare to.
 	TargetValue interface{} `json:"targetValue,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsAssertionJSONPathTargetTarget instantiates a new SyntheticsAssertionJSONPathTargetTarget object
@@ -168,9 +169,11 @@ func (o *SyntheticsAssertionJSONPathTargetTarget) UnmarshalJSON(bytes []byte) (e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.JsonPath = all.JsonPath
 	o.Operator = all.Operator
 	o.TargetValue = all.TargetValue

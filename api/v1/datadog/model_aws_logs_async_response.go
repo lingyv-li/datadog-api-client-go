@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // AWSLogsAsyncResponse A list of all Datadog-AWS logs integrations available in your Datadog organization.
@@ -19,7 +20,8 @@ type AWSLogsAsyncResponse struct {
 	// Status of the properties.
 	Status *string `json:"status,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSLogsAsyncResponse instantiates a new AWSLogsAsyncResponse object
@@ -129,9 +131,17 @@ func (o *AWSLogsAsyncResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Errors; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Errors = all.Errors
 	o.Status = all.Status
 	return nil

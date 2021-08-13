@@ -23,7 +23,8 @@ type SlackIntegrationChannelDisplay struct {
 	// Show the scopes on which the monitor alerted.
 	Tags *bool `json:"tags,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSlackIntegrationChannelDisplay instantiates a new SlackIntegrationChannelDisplay object
@@ -221,9 +222,11 @@ func (o *SlackIntegrationChannelDisplay) UnmarshalJSON(bytes []byte) (err error)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Message = all.Message
 	o.Notified = all.Notified
 	o.Snapshot = all.Snapshot

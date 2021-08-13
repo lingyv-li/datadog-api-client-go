@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // MetricsQueryResponse Response Object that includes your query and the list of metrics retrieved.
@@ -33,7 +34,8 @@ type MetricsQueryResponse struct {
 	// End of requested time window, milliseconds since Unix epoch.
 	ToDate *int64 `json:"to_date,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricsQueryResponse instantiates a new MetricsQueryResponse object
@@ -395,9 +397,17 @@ func (o *MetricsQueryResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Series; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Error = all.Error
 	o.FromDate = all.FromDate
 	o.GroupBy = all.GroupBy

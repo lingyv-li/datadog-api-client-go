@@ -20,7 +20,8 @@ type OrganizationCreateBody struct {
 	Name         string                    `json:"name"`
 	Subscription *OrganizationSubscription `json:"subscription,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewOrganizationCreateBody instantiates a new OrganizationCreateBody object
@@ -169,9 +170,18 @@ func (o *OrganizationCreateBody) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Billing; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Subscription; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Billing = all.Billing
 	o.Name = all.Name
 	o.Subscription = all.Subscription

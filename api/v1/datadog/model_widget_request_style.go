@@ -19,7 +19,8 @@ type WidgetRequestStyle struct {
 	// Color palette to apply to the widget.
 	Palette *string `json:"palette,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewWidgetRequestStyle instantiates a new WidgetRequestStyle object
@@ -165,6 +166,7 @@ func (o *WidgetRequestStyle) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -173,17 +175,21 @@ func (o *WidgetRequestStyle) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.LineWidth; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.LineType = all.LineType
 	o.LineWidth = all.LineWidth
 	o.Palette = all.Palette

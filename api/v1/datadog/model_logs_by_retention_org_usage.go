@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsByRetentionOrgUsage Indexed logs usage by retention for a single organization.
@@ -17,7 +18,8 @@ type LogsByRetentionOrgUsage struct {
 	// Indexed logs usage for each active retention for the organization.
 	Usage *[]LogsRetentionSumUsage `json:"usage,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsByRetentionOrgUsage instantiates a new LogsByRetentionOrgUsage object
@@ -91,9 +93,17 @@ func (o *LogsByRetentionOrgUsage) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Usage = all.Usage
 	return nil
 }

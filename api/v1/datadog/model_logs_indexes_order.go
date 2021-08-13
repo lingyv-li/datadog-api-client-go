@@ -18,7 +18,8 @@ type LogsIndexesOrder struct {
 	// Array of strings identifying by their name(s) the index(es) of your organization. Logs are tested against the query filter of each index one by one, following the order of the array. Logs are eventually stored in the first matching index.
 	IndexNames []string `json:"index_names"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsIndexesOrder instantiates a new LogsIndexesOrder object
@@ -95,9 +96,11 @@ func (o *LogsIndexesOrder) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IndexNames = all.IndexNames
 	return nil
 }

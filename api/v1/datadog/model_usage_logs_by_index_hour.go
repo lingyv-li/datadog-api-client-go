@@ -26,7 +26,8 @@ type UsageLogsByIndexHour struct {
 	// The retention period (in days) for this index ID.
 	Retention *int64 `json:"retention,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageLogsByIndexHour instantiates a new UsageLogsByIndexHour object
@@ -244,9 +245,11 @@ func (o *UsageLogsByIndexHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.EventCount = all.EventCount
 	o.Hour = all.Hour
 	o.IndexId = all.IndexId

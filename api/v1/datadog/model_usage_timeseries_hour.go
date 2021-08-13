@@ -24,7 +24,8 @@ type UsageTimeseriesHour struct {
 	// Contains the number of non-aggregation custom metrics.
 	NumCustomTimeseries *int64 `json:"num_custom_timeseries,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageTimeseriesHour instantiates a new UsageTimeseriesHour object
@@ -206,9 +207,11 @@ func (o *UsageTimeseriesHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.NumCustomInputTimeseries = all.NumCustomInputTimeseries
 	o.NumCustomOutputTimeseries = all.NumCustomOutputTimeseries

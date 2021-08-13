@@ -20,7 +20,8 @@ type UsageSyntheticsHour struct {
 	// The hour for the usage.
 	Hour *time.Time `json:"hour,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSyntheticsHour instantiates a new UsageSyntheticsHour object
@@ -130,9 +131,11 @@ func (o *UsageSyntheticsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CheckCallsCount = all.CheckCallsCount
 	o.Hour = all.Hour
 	return nil

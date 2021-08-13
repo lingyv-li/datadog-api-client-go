@@ -20,7 +20,8 @@ type UsageIncidentManagementHour struct {
 	// Contains the total number monthly active users from the start of the given hour's month until the given hour.
 	MonthlyActiveUsers *int64 `json:"monthly_active_users,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageIncidentManagementHour instantiates a new UsageIncidentManagementHour object
@@ -130,9 +131,11 @@ func (o *UsageIncidentManagementHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.MonthlyActiveUsers = all.MonthlyActiveUsers
 	return nil

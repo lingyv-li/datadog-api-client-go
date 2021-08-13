@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // IPPrefixesSynthetics Available prefix information for the Synthetics endpoints.
@@ -23,7 +24,8 @@ type IPPrefixesSynthetics struct {
 	// List of IPv6 prefixes by location.
 	PrefixesIpv6ByLocation *map[string][]string `json:"prefixes_ipv6_by_location,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIPPrefixesSynthetics instantiates a new IPPrefixesSynthetics object
@@ -205,9 +207,23 @@ func (o *IPPrefixesSynthetics) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.PrefixesIpv4ByLocation; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.PrefixesIpv6ByLocation; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.PrefixesIpv4 = all.PrefixesIpv4
 	o.PrefixesIpv4ByLocation = all.PrefixesIpv4ByLocation
 	o.PrefixesIpv6 = all.PrefixesIpv6

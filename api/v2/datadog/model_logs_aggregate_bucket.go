@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsAggregateBucket A bucket values
@@ -19,7 +20,8 @@ type LogsAggregateBucket struct {
 	// A map of the metric name -> value for regular compute or list of values for a timeseries
 	Computes *map[string]LogsAggregateBucketValue `json:"computes,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateBucket instantiates a new LogsAggregateBucket object
@@ -129,9 +131,17 @@ func (o *LogsAggregateBucket) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Computes; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.By = all.By
 	o.Computes = all.Computes
 	return nil

@@ -19,7 +19,8 @@ type SecurityMonitoringRuntimeAgentRule struct {
 	// A Runtime Security expression determines what activity should be collected by the Datadog Agent. These logical expressions can use predefined operators and attributes. Tags cannot be used in Runtime Security expressions. Instead, allow or deny based on tags under the advanced option.
 	Expression *string `json:"expression,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringRuntimeAgentRule instantiates a new SecurityMonitoringRuntimeAgentRule object
@@ -129,9 +130,11 @@ func (o *SecurityMonitoringRuntimeAgentRule) UnmarshalJSON(bytes []byte) (err er
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AgentRuleId = all.AgentRuleId
 	o.Expression = all.Expression
 	return nil

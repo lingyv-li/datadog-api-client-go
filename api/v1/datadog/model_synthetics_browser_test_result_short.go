@@ -23,7 +23,8 @@ type SyntheticsBrowserTestResultShort struct {
 	ResultId *string                      `json:"result_id,omitempty"`
 	Status   *SyntheticsTestMonitorStatus `json:"status,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsBrowserTestResultShort instantiates a new SyntheticsBrowserTestResultShort object
@@ -241,17 +242,25 @@ func (o *SyntheticsBrowserTestResultShort) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if v := all.Result; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	if v := all.Status; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CheckTime = all.CheckTime
 	o.ProbeDc = all.ProbeDc
 	o.Result = all.Result

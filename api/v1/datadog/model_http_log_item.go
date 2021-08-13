@@ -25,7 +25,8 @@ type HTTPLogItem struct {
 	// The name of the application or service generating the log events. It is used to switch from Logs to APM, so make sure you define the same value when you use both products. See [reserved attributes](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes).
 	Service *string `json:"service,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHTTPLogItem instantiates a new HTTPLogItem object
@@ -243,9 +244,11 @@ func (o *HTTPLogItem) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Ddsource = all.Ddsource
 	o.Ddtags = all.Ddtags
 	o.Hostname = all.Hostname

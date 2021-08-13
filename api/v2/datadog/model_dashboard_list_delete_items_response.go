@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // DashboardListDeleteItemsResponse Response containing a list of deleted dashboards.
@@ -17,7 +18,8 @@ type DashboardListDeleteItemsResponse struct {
 	// List of dashboards deleted from the dashboard list.
 	DeletedDashboardsFromList *[]DashboardListItemResponse `json:"deleted_dashboards_from_list,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDashboardListDeleteItemsResponse instantiates a new DashboardListDeleteItemsResponse object
@@ -91,9 +93,17 @@ func (o *DashboardListDeleteItemsResponse) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.DeletedDashboardsFromList; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.DeletedDashboardsFromList = all.DeletedDashboardsFromList
 	return nil
 }

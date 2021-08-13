@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsMetricUpdateAttributes The log-based metric properties that will be updated.
@@ -18,7 +19,8 @@ type LogsMetricUpdateAttributes struct {
 	// The rules for the group by.
 	GroupBy *[]LogsMetricGroupBy `json:"group_by,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsMetricUpdateAttributes instantiates a new LogsMetricUpdateAttributes object
@@ -128,9 +130,20 @@ func (o *LogsMetricUpdateAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Filter; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.GroupBy; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Filter = all.Filter
 	o.GroupBy = all.GroupBy
 	return nil

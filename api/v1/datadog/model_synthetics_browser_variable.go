@@ -25,7 +25,8 @@ type SyntheticsBrowserVariable struct {
 	Pattern *string                       `json:"pattern,omitempty"`
 	Type    SyntheticsBrowserVariableType `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsBrowserVariable instantiates a new SyntheticsBrowserVariable object
@@ -243,17 +244,21 @@ func (o *SyntheticsBrowserVariable) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Example = all.Example
 	o.Id = all.Id
 	o.Name = all.Name

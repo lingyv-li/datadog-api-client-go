@@ -18,7 +18,8 @@ type SlackIntegrationChannel struct {
 	// Your channel name.
 	Name *string `json:"name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSlackIntegrationChannel instantiates a new SlackIntegrationChannel object
@@ -128,9 +129,14 @@ func (o *SlackIntegrationChannel) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Display; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Display = all.Display
 	o.Name = all.Name
 	return nil

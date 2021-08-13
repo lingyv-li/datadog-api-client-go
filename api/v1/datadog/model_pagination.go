@@ -19,7 +19,8 @@ type Pagination struct {
 	// Total count of elements matched by the filter.
 	TotalFilteredCount *int64 `json:"total_filtered_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPagination instantiates a new Pagination object
@@ -129,9 +130,11 @@ func (o *Pagination) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.TotalCount = all.TotalCount
 	o.TotalFilteredCount = all.TotalFilteredCount
 	return nil

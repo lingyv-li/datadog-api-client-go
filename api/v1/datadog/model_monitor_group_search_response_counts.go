@@ -19,7 +19,8 @@ type MonitorGroupSearchResponseCounts struct {
 	// Search facets.
 	Type *[]interface{} `json:"type,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMonitorGroupSearchResponseCounts instantiates a new MonitorGroupSearchResponseCounts object
@@ -129,9 +130,11 @@ func (o *MonitorGroupSearchResponseCounts) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Status = all.Status
 	o.Type = all.Type
 	return nil

@@ -27,7 +27,8 @@ type LogsUserAgentParser struct {
 	Target string                  `json:"target"`
 	Type   LogsUserAgentParserType `json:"type"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsUserAgentParser instantiates a new LogsUserAgentParser object
@@ -290,17 +291,21 @@ func (o *LogsUserAgentParser) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.Type; !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IsEnabled = all.IsEnabled
 	o.IsEncoded = all.IsEncoded
 	o.Name = all.Name

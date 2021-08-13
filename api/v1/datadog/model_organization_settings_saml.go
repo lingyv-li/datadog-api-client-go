@@ -17,7 +17,8 @@ type OrganizationSettingsSaml struct {
 	// Whether or not SAML is enabled for this organization.
 	Enabled *bool `json:"enabled,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewOrganizationSettingsSaml instantiates a new OrganizationSettingsSaml object
@@ -91,9 +92,11 @@ func (o *OrganizationSettingsSaml) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Enabled = all.Enabled
 	return nil
 }

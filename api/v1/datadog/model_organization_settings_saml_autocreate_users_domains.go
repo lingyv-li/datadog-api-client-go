@@ -19,7 +19,8 @@ type OrganizationSettingsSamlAutocreateUsersDomains struct {
 	// Whether or not the automated user creation based on SAML domain is enabled.
 	Enabled *bool `json:"enabled,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewOrganizationSettingsSamlAutocreateUsersDomains instantiates a new OrganizationSettingsSamlAutocreateUsersDomains object
@@ -129,9 +130,11 @@ func (o *OrganizationSettingsSamlAutocreateUsersDomains) UnmarshalJSON(bytes []b
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Domains = all.Domains
 	o.Enabled = all.Enabled
 	return nil

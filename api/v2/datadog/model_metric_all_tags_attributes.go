@@ -17,7 +17,8 @@ type MetricAllTagsAttributes struct {
 	// List of indexed tag value pairs.
 	Tags *[]string `json:"tags,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricAllTagsAttributes instantiates a new MetricAllTagsAttributes object
@@ -91,9 +92,11 @@ func (o *MetricAllTagsAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Tags = all.Tags
 	return nil
 }

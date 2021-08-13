@@ -27,7 +27,8 @@ type UsageSpecifiedCustomReportsAttributes struct {
 	// A list of tags to apply to specified custom reports.
 	Tags *[]string `json:"tags,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSpecifiedCustomReportsAttributes instantiates a new UsageSpecifiedCustomReportsAttributes object
@@ -281,9 +282,11 @@ func (o *UsageSpecifiedCustomReportsAttributes) UnmarshalJSON(bytes []byte) (err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ComputedOn = all.ComputedOn
 	o.EndDate = all.EndDate
 	o.Location = all.Location

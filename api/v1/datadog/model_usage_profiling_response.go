@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // UsageProfilingResponse Response containing the number of profiled hosts for each hour for a given organization.
@@ -17,7 +18,8 @@ type UsageProfilingResponse struct {
 	// Get hourly usage for profiled hosts.
 	Usage *[]UsageProfilingHour `json:"usage,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageProfilingResponse instantiates a new UsageProfilingResponse object
@@ -91,9 +93,17 @@ func (o *UsageProfilingResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Usage = all.Usage
 	return nil
 }

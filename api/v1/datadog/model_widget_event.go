@@ -20,7 +20,8 @@ type WidgetEvent struct {
 	// The execution method for multi-value filters.
 	TagsExecution *string `json:"tags_execution,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewWidgetEvent instantiates a new WidgetEvent object
@@ -133,9 +134,11 @@ func (o *WidgetEvent) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Q = all.Q
 	o.TagsExecution = all.TagsExecution
 	return nil

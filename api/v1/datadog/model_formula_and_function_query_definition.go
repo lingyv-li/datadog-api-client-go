@@ -19,7 +19,8 @@ type FormulaAndFunctionQueryDefinition struct {
 	FormulaAndFunctionProcessQueryDefinition *FormulaAndFunctionProcessQueryDefinition
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // FormulaAndFunctionEventQueryDefinitionAsFormulaAndFunctionQueryDefinition is a convenience function that returns FormulaAndFunctionEventQueryDefinition wrapped in FormulaAndFunctionQueryDefinition
@@ -97,6 +98,7 @@ func (dst *FormulaAndFunctionQueryDefinition) UnmarshalJSON(data []byte) error {
 		dst.FormulaAndFunctionEventQueryDefinition = nil
 		dst.FormulaAndFunctionMetricQueryDefinition = nil
 		dst.FormulaAndFunctionProcessQueryDefinition = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

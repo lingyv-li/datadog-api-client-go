@@ -21,7 +21,8 @@ type LogsExclusion struct {
 	// Name of the index exclusion filter.
 	Name string `json:"name"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsExclusion instantiates a new LogsExclusion object
@@ -170,9 +171,14 @@ func (o *LogsExclusion) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Filter; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Filter = all.Filter
 	o.IsEnabled = all.IsEnabled
 	o.Name = all.Name

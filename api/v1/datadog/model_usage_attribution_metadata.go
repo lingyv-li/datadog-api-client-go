@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // UsageAttributionMetadata The object containing document metadata.
@@ -18,7 +19,8 @@ type UsageAttributionMetadata struct {
 	Aggregates *[]UsageAttributionAggregatesBody `json:"aggregates,omitempty"`
 	Pagination *UsageAttributionPagination       `json:"pagination,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageAttributionMetadata instantiates a new UsageAttributionMetadata object
@@ -128,9 +130,21 @@ func (o *UsageAttributionMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Aggregates; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Pagination; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Aggregates = all.Aggregates
 	o.Pagination = all.Pagination
 	return nil

@@ -24,7 +24,8 @@ type UsageRumSessionsHour struct {
 	// Contains the number of mobile RUM Sessions on iOS (data available beginning December 1, 2020).
 	SessionCountIos *int64 `json:"session_count_ios,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageRumSessionsHour instantiates a new UsageRumSessionsHour object
@@ -206,9 +207,11 @@ func (o *UsageRumSessionsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.SessionCount = all.SessionCount
 	o.SessionCountAndroid = all.SessionCountAndroid

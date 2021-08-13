@@ -17,7 +17,8 @@ type AWSAccountCreateResponse struct {
 	// AWS external_id.
 	ExternalId *string `json:"external_id,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSAccountCreateResponse instantiates a new AWSAccountCreateResponse object
@@ -91,9 +92,11 @@ func (o *AWSAccountCreateResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ExternalId = all.ExternalId
 	return nil
 }

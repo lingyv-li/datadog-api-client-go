@@ -29,7 +29,8 @@ type MetricMetadata struct {
 	// Primary unit of the metric such as `byte` or `operation`.
 	Unit *string `json:"unit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricMetadata instantiates a new MetricMetadata object
@@ -319,9 +320,11 @@ func (o *MetricMetadata) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Description = all.Description
 	o.Integration = all.Integration
 	o.PerUnit = all.PerUnit

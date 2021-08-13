@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsAggregateResponseData The query results
@@ -17,7 +18,8 @@ type LogsAggregateResponseData struct {
 	// The list of matching buckets, one item per bucket
 	Buckets *[]LogsAggregateBucket `json:"buckets,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateResponseData instantiates a new LogsAggregateResponseData object
@@ -91,9 +93,17 @@ func (o *LogsAggregateResponseData) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Buckets; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Buckets = all.Buckets
 	return nil
 }

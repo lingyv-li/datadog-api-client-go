@@ -23,7 +23,8 @@ type MonitorSearchResponseMetadata struct {
 	// The total number of monitors.
 	TotalCount *int64 `json:"total_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMonitorSearchResponseMetadata instantiates a new MonitorSearchResponseMetadata object
@@ -205,9 +206,11 @@ func (o *MonitorSearchResponseMetadata) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Page = all.Page
 	o.PageCount = all.PageCount
 	o.PerPage = all.PerPage

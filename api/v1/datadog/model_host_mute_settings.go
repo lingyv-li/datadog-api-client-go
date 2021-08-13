@@ -21,7 +21,8 @@ type HostMuteSettings struct {
 	// If true and the host is already muted, replaces existing host mute settings.
 	Override *bool `json:"override,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHostMuteSettings instantiates a new HostMuteSettings object
@@ -167,9 +168,11 @@ func (o *HostMuteSettings) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.End = all.End
 	o.Message = all.Message
 	o.Override = all.Override

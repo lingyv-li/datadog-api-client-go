@@ -18,7 +18,8 @@ type CheckCanDeleteSLOResponse struct {
 	// A mapping of SLO id to it's current usages.
 	Errors *map[string]string `json:"errors,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewCheckCanDeleteSLOResponse instantiates a new CheckCanDeleteSLOResponse object
@@ -128,9 +129,14 @@ func (o *CheckCanDeleteSLOResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	o.Errors = all.Errors
 	return nil

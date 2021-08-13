@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // DashboardListUpdateItemsResponse Response containing a list of updated dashboards.
@@ -17,7 +18,8 @@ type DashboardListUpdateItemsResponse struct {
 	// List of dashboards in the dashboard list.
 	Dashboards *[]DashboardListItemResponse `json:"dashboards,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDashboardListUpdateItemsResponse instantiates a new DashboardListUpdateItemsResponse object
@@ -91,9 +93,17 @@ func (o *DashboardListUpdateItemsResponse) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Dashboards; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Dashboards = all.Dashboards
 	return nil
 }

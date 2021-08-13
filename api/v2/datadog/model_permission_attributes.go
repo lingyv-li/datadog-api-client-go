@@ -30,7 +30,8 @@ type PermissionAttributes struct {
 	// Whether or not the permission is restricted.
 	Restricted *bool `json:"restricted,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPermissionAttributes instantiates a new PermissionAttributes object
@@ -320,9 +321,11 @@ func (o *PermissionAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Created = all.Created
 	o.Description = all.Description
 	o.DisplayName = all.DisplayName

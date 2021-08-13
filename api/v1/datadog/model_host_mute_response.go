@@ -23,7 +23,8 @@ type HostMuteResponse struct {
 	// Message associated with the mute.
 	Message *string `json:"message,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHostMuteResponse instantiates a new HostMuteResponse object
@@ -205,9 +206,11 @@ func (o *HostMuteResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Action = all.Action
 	o.End = all.End
 	o.Hostname = all.Hostname

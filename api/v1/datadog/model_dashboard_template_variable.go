@@ -22,7 +22,8 @@ type DashboardTemplateVariable struct {
 	// The tag prefix associated with the variable. Only tags with this prefix appear in the variable drop-down.
 	Prefix NullableString `json:"prefix,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDashboardTemplateVariable instantiates a new DashboardTemplateVariable object
@@ -193,9 +194,11 @@ func (o *DashboardTemplateVariable) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Default = all.Default
 	o.Name = all.Name
 	o.Prefix = all.Prefix

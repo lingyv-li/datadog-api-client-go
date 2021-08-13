@@ -17,7 +17,8 @@ type OrganizationSettingsSamlIdpInitiatedLogin struct {
 	// Whether SAML IdP initiated login is enabled, learn more in the [SAML documentation](https://docs.datadoghq.com/account_management/saml/#idp-initiated-login).
 	Enabled *bool `json:"enabled,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewOrganizationSettingsSamlIdpInitiatedLogin instantiates a new OrganizationSettingsSamlIdpInitiatedLogin object
@@ -91,9 +92,11 @@ func (o *OrganizationSettingsSamlIdpInitiatedLogin) UnmarshalJSON(bytes []byte) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Enabled = all.Enabled
 	return nil
 }

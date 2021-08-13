@@ -26,7 +26,8 @@ type WidgetLayout struct {
 	// The position of the widget on the y (vertical) axis. Should be a non-negative integer.
 	Y int64 `json:"y"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewWidgetLayout instantiates a new WidgetLayout object
@@ -238,9 +239,11 @@ func (o *WidgetLayout) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Height = all.Height
 	o.IsColumnBreak = all.IsColumnBreak
 	o.Width = all.Width

@@ -19,7 +19,8 @@ type SecurityFilterExclusionFilterResponse struct {
 	// The exclusion filter query.
 	Query *string `json:"query,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityFilterExclusionFilterResponse instantiates a new SecurityFilterExclusionFilterResponse object
@@ -129,9 +130,11 @@ func (o *SecurityFilterExclusionFilterResponse) UnmarshalJSON(bytes []byte) (err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Name = all.Name
 	o.Query = all.Query
 	return nil

@@ -19,7 +19,8 @@ type MonitorThresholdWindowOptions struct {
 	// Describes how long a metric must be anomalous before an alert triggers.
 	TriggerWindow NullableString `json:"trigger_window,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMonitorThresholdWindowOptions instantiates a new MonitorThresholdWindowOptions object
@@ -151,9 +152,11 @@ func (o *MonitorThresholdWindowOptions) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.RecoveryWindow = all.RecoveryWindow
 	o.TriggerWindow = all.TriggerWindow
 	return nil

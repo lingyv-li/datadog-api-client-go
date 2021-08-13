@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // LogsIndexListResponse Object with all Index configurations for a given organization.
@@ -17,7 +18,8 @@ type LogsIndexListResponse struct {
 	// Array of Log index configurations.
 	Indexes *[]LogsIndex `json:"indexes,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsIndexListResponse instantiates a new LogsIndexListResponse object
@@ -91,9 +93,17 @@ func (o *LogsIndexListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Indexes; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Indexes = all.Indexes
 	return nil
 }

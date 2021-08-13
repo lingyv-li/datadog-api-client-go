@@ -21,7 +21,8 @@ type GraphSnapshot struct {
 	// URL of your [graph snapshot](https://docs.datadoghq.com/metrics/explorer/#snapshot).
 	SnapshotUrl *string `json:"snapshot_url,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewGraphSnapshot instantiates a new GraphSnapshot object
@@ -167,9 +168,11 @@ func (o *GraphSnapshot) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.GraphDef = all.GraphDef
 	o.MetricQuery = all.MetricQuery
 	o.SnapshotUrl = all.SnapshotUrl

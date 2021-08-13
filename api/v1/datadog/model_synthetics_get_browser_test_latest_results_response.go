@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SyntheticsGetBrowserTestLatestResultsResponse Object with the latest Synthetic browser test run.
@@ -19,7 +20,8 @@ type SyntheticsGetBrowserTestLatestResultsResponse struct {
 	// Result of the latest browser test run.
 	Results *[]SyntheticsBrowserTestResultShort `json:"results,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsGetBrowserTestLatestResultsResponse instantiates a new SyntheticsGetBrowserTestLatestResultsResponse object
@@ -129,9 +131,17 @@ func (o *SyntheticsGetBrowserTestLatestResultsResponse) UnmarshalJSON(bytes []by
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Results; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.LastTimestampFetched = all.LastTimestampFetched
 	o.Results = all.Results
 	return nil

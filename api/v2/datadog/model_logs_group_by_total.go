@@ -19,7 +19,8 @@ type LogsGroupByTotal struct {
 	String  *string
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // BoolAsLogsGroupByTotal is a convenience function that returns bool wrapped in LogsGroupByTotal
@@ -97,6 +98,7 @@ func (dst *LogsGroupByTotal) UnmarshalJSON(data []byte) error {
 		dst.Bool = nil
 		dst.Float64 = nil
 		dst.String = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

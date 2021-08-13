@@ -22,7 +22,8 @@ type LogsQueryCompute struct {
 	// Define a time interval in seconds.
 	Interval *int64 `json:"interval,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsQueryCompute instantiates a new LogsQueryCompute object
@@ -171,9 +172,11 @@ func (o *LogsQueryCompute) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Aggregation = all.Aggregation
 	o.Facet = all.Facet
 	o.Interval = all.Interval

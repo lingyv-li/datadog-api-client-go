@@ -19,7 +19,8 @@ type LogsArchiveCreateRequestDestination struct {
 	LogsArchiveDestinationS3    *LogsArchiveDestinationS3
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // LogsArchiveDestinationAzureAsLogsArchiveCreateRequestDestination is a convenience function that returns LogsArchiveDestinationAzure wrapped in LogsArchiveCreateRequestDestination
@@ -97,6 +98,7 @@ func (dst *LogsArchiveCreateRequestDestination) UnmarshalJSON(data []byte) error
 		dst.LogsArchiveDestinationAzure = nil
 		dst.LogsArchiveDestinationGCS = nil
 		dst.LogsArchiveDestinationS3 = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

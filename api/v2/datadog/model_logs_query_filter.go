@@ -23,7 +23,8 @@ type LogsQueryFilter struct {
 	// The maximum time for the requested logs, supports date math and regular timestamps
 	To *string `json:"to,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsQueryFilter instantiates a new LogsQueryFilter object
@@ -217,9 +218,11 @@ func (o *LogsQueryFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.From = all.From
 	o.Indexes = all.Indexes
 	o.Query = all.Query

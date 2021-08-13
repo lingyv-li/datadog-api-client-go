@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // DashboardTemplateVariablePreset Template variables saved views.
@@ -19,7 +20,8 @@ type DashboardTemplateVariablePreset struct {
 	// List of variables.
 	TemplateVariables *[]DashboardTemplateVariablePresetValue `json:"template_variables,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDashboardTemplateVariablePreset instantiates a new DashboardTemplateVariablePreset object
@@ -129,9 +131,17 @@ func (o *DashboardTemplateVariablePreset) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.TemplateVariables; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Name = all.Name
 	o.TemplateVariables = all.TemplateVariables
 	return nil

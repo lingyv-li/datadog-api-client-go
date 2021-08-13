@@ -19,7 +19,8 @@ type LogsAggregateBucketValueTimeseriesPoint struct {
 	// The value for this point
 	Value *float64 `json:"value,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsAggregateBucketValueTimeseriesPoint instantiates a new LogsAggregateBucketValueTimeseriesPoint object
@@ -129,9 +130,11 @@ func (o *LogsAggregateBucketValueTimeseriesPoint) UnmarshalJSON(bytes []byte) (e
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Time = all.Time
 	o.Value = all.Value
 	return nil

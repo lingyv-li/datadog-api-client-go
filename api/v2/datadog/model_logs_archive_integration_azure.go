@@ -20,7 +20,8 @@ type LogsArchiveIntegrationAzure struct {
 	// A tenant ID.
 	TenantId string `json:"tenant_id"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsArchiveIntegrationAzure instantiates a new LogsArchiveIntegrationAzure object
@@ -130,9 +131,11 @@ func (o *LogsArchiveIntegrationAzure) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ClientId = all.ClientId
 	o.TenantId = all.TenantId
 	return nil

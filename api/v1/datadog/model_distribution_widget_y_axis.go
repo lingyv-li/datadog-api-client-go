@@ -25,7 +25,8 @@ type DistributionWidgetYAxis struct {
 	// Specifies the scale type. Possible values are `linear` or `log`.
 	Scale *string `json:"scale,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDistributionWidgetYAxis instantiates a new DistributionWidgetYAxis object
@@ -255,9 +256,11 @@ func (o *DistributionWidgetYAxis) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IncludeZero = all.IncludeZero
 	o.Label = all.Label
 	o.Max = all.Max

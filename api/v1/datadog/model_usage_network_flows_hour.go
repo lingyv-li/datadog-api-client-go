@@ -20,7 +20,8 @@ type UsageNetworkFlowsHour struct {
 	// Contains the number of netflow events indexed.
 	IndexedEventCount *int64 `json:"indexed_event_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageNetworkFlowsHour instantiates a new UsageNetworkFlowsHour object
@@ -130,9 +131,11 @@ func (o *UsageNetworkFlowsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.IndexedEventCount = all.IndexedEventCount
 	return nil

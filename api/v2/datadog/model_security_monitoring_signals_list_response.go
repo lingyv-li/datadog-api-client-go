@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // SecurityMonitoringSignalsListResponse The response object with all security signals matching the request and pagination information.
@@ -19,7 +20,8 @@ type SecurityMonitoringSignalsListResponse struct {
 	Links *SecurityMonitoringSignalsListResponseLinks `json:"links,omitempty"`
 	Meta  *SecurityMonitoringSignalsListResponseMeta  `json:"meta,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringSignalsListResponse instantiates a new SecurityMonitoringSignalsListResponse object
@@ -165,9 +167,25 @@ func (o *SecurityMonitoringSignalsListResponse) UnmarshalJSON(bytes []byte) (err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Data; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
+	if v := all.Links; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Meta; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Data = all.Data
 	o.Links = all.Links
 	o.Meta = all.Meta

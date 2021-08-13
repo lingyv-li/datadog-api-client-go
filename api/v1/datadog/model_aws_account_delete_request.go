@@ -21,7 +21,8 @@ type AWSAccountDeleteRequest struct {
 	// Your Datadog role delegation name.
 	RoleName *string `json:"role_name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSAccountDeleteRequest instantiates a new AWSAccountDeleteRequest object
@@ -167,9 +168,11 @@ func (o *AWSAccountDeleteRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AccessKeyId = all.AccessKeyId
 	o.AccountId = all.AccountId
 	o.RoleName = all.RoleName

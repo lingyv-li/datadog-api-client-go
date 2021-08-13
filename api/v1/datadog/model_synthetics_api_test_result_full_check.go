@@ -17,7 +17,8 @@ import (
 type SyntheticsAPITestResultFullCheck struct {
 	Config SyntheticsTestConfig `json:"config"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsAPITestResultFullCheck instantiates a new SyntheticsAPITestResultFullCheck object
@@ -94,9 +95,14 @@ func (o *SyntheticsAPITestResultFullCheck) UnmarshalJSON(bytes []byte) (err erro
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Config; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Config = all.Config
 	return nil
 }

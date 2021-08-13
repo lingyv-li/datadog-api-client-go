@@ -17,7 +17,8 @@ type AWSLogsLambda struct {
 	// Available ARN IDs.
 	Arn *string `json:"arn,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSLogsLambda instantiates a new AWSLogsLambda object
@@ -91,9 +92,11 @@ func (o *AWSLogsLambda) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Arn = all.Arn
 	return nil
 }

@@ -17,7 +17,8 @@ type APIKeyResponseIncludedItem struct {
 	User *User
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // UserAsAPIKeyResponseIncludedItem is a convenience function that returns User wrapped in APIKeyResponseIncludedItem
@@ -49,6 +50,7 @@ func (dst *APIKeyResponseIncludedItem) UnmarshalJSON(data []byte) error {
 	if match != 1 { // more than 1 match
 		// reset to nil
 		dst.User = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

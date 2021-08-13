@@ -17,7 +17,8 @@ import (
 type NotebookMarkdownCellAttributes struct {
 	Definition NotebookMarkdownCellDefinition `json:"definition"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewNotebookMarkdownCellAttributes instantiates a new NotebookMarkdownCellAttributes object
@@ -94,9 +95,14 @@ func (o *NotebookMarkdownCellAttributes) UnmarshalJSON(bytes []byte) (err error)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Definition; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Definition = all.Definition
 	return nil
 }

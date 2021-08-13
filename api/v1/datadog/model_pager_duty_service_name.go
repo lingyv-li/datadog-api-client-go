@@ -18,7 +18,8 @@ type PagerDutyServiceName struct {
 	// Your service name associated service key in PagerDuty.
 	ServiceName string `json:"service_name"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPagerDutyServiceName instantiates a new PagerDutyServiceName object
@@ -95,9 +96,11 @@ func (o *PagerDutyServiceName) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ServiceName = all.ServiceName
 	return nil
 }

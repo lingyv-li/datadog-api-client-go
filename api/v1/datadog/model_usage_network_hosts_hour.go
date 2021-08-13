@@ -20,7 +20,8 @@ type UsageNetworkHostsHour struct {
 	// The hour for the usage.
 	Hour *time.Time `json:"hour,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageNetworkHostsHour instantiates a new UsageNetworkHostsHour object
@@ -130,9 +131,11 @@ func (o *UsageNetworkHostsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.HostCount = all.HostCount
 	o.Hour = all.Hour
 	return nil

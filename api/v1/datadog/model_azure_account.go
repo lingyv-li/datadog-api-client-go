@@ -29,7 +29,8 @@ type AzureAccount struct {
 	// Your Azure Active Directory ID.
 	TenantName *string `json:"tenant_name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAzureAccount instantiates a new AzureAccount object
@@ -319,9 +320,11 @@ func (o *AzureAccount) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.ClientId = all.ClientId
 	o.ClientSecret = all.ClientSecret
 	o.Errors = all.Errors

@@ -20,7 +20,8 @@ type HTTPLogError struct {
 	// Error message.
 	Message string `json:"message"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHTTPLogError instantiates a new HTTPLogError object
@@ -130,9 +131,11 @@ func (o *HTTPLogError) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Code = all.Code
 	o.Message = all.Message
 	return nil

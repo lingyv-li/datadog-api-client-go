@@ -18,7 +18,8 @@ type SecurityMonitoringFilter struct {
 	// Query for selecting logs to apply the filtering action.
 	Query *string `json:"query,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSecurityMonitoringFilter instantiates a new SecurityMonitoringFilter object
@@ -128,6 +129,7 @@ func (o *SecurityMonitoringFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -136,9 +138,11 @@ func (o *SecurityMonitoringFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Action = all.Action
 	o.Query = all.Query
 	return nil

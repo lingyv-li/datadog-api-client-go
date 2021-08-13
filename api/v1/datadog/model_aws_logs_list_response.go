@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // AWSLogsListResponse A list of all Datadog-AWS logs integrations available in your Datadog organization.
@@ -21,7 +22,8 @@ type AWSLogsListResponse struct {
 	// Array of services IDs.
 	Services *[]string `json:"services,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSLogsListResponse instantiates a new AWSLogsListResponse object
@@ -167,9 +169,17 @@ func (o *AWSLogsListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Lambdas; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.AccountId = all.AccountId
 	o.Lambdas = all.Lambdas
 	o.Services = all.Services

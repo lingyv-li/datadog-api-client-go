@@ -18,7 +18,8 @@ type IncidentServiceUpdateAttributes struct {
 	// Name of the incident service.
 	Name string `json:"name"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentServiceUpdateAttributes instantiates a new IncidentServiceUpdateAttributes object
@@ -95,9 +96,11 @@ func (o *IncidentServiceUpdateAttributes) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Name = all.Name
 	return nil
 }

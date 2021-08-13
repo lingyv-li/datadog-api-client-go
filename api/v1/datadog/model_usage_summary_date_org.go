@@ -103,7 +103,8 @@ type UsageSummaryDateOrg struct {
 	// Shows the 99th percentile of all vSphere hosts over all hours in the current date for the given org.
 	VsphereHostTop99p *int64 `json:"vsphere_host_top99p,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSummaryDateOrg instantiates a new UsageSummaryDateOrg object
@@ -1725,9 +1726,11 @@ func (o *UsageSummaryDateOrg) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AgentHostTop99p = all.AgentHostTop99p
 	o.ApmAzureAppServiceHostTop99p = all.ApmAzureAppServiceHostTop99p
 	o.ApmHostTop99p = all.ApmHostTop99p

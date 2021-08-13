@@ -19,7 +19,8 @@ type LogsAggregateBucketValue struct {
 	String                             *string
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // LogsAggregateBucketValueTimeseriesAsLogsAggregateBucketValue is a convenience function that returns LogsAggregateBucketValueTimeseries wrapped in LogsAggregateBucketValue
@@ -97,6 +98,7 @@ func (dst *LogsAggregateBucketValue) UnmarshalJSON(data []byte) error {
 		dst.LogsAggregateBucketValueTimeseries = nil
 		dst.Float64 = nil
 		dst.String = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

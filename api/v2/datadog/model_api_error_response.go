@@ -18,7 +18,8 @@ type APIErrorResponse struct {
 	// A list of errors.
 	Errors []string `json:"errors"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAPIErrorResponse instantiates a new APIErrorResponse object
@@ -95,9 +96,11 @@ func (o *APIErrorResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Errors = all.Errors
 	return nil
 }

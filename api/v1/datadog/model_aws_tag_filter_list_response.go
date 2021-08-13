@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // AWSTagFilterListResponse An array of tag filter rules by `namespace` and tag filter string.
@@ -17,7 +18,8 @@ type AWSTagFilterListResponse struct {
 	// An array of tag filters.
 	Filters *[]AWSTagFilter `json:"filters,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewAWSTagFilterListResponse instantiates a new AWSTagFilterListResponse object
@@ -91,9 +93,17 @@ func (o *AWSTagFilterListResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Filters; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Filters = all.Filters
 	return nil
 }

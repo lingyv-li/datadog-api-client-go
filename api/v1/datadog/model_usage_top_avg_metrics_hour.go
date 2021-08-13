@@ -22,7 +22,8 @@ type UsageTopAvgMetricsHour struct {
 	// Contains the custom metric name.
 	MetricName *string `json:"metric_name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageTopAvgMetricsHour instantiates a new UsageTopAvgMetricsHour object
@@ -204,17 +205,21 @@ func (o *UsageTopAvgMetricsHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	if v := all.MetricCategory; v != nil && !v.IsValid() {
 		err = json.Unmarshal(bytes, &raw)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AvgMetricHour = all.AvgMetricHour
 	o.MaxMetricHour = all.MaxMetricHour
 	o.MetricCategory = all.MetricCategory

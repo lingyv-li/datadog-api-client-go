@@ -20,7 +20,8 @@ type LogsExclusionFilter struct {
 	// Sample rate to apply to logs going through this exclusion filter, a value of 1.0 excludes all logs matching the query.
 	SampleRate float64 `json:"sample_rate"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsExclusionFilter instantiates a new LogsExclusionFilter object
@@ -133,9 +134,11 @@ func (o *LogsExclusionFilter) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Query = all.Query
 	o.SampleRate = all.SampleRate
 	return nil

@@ -17,7 +17,8 @@ type DeletedMonitor struct {
 	// ID of the deleted monitor.
 	DeletedMonitorId *int64 `json:"deleted_monitor_id,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDeletedMonitor instantiates a new DeletedMonitor object
@@ -91,9 +92,11 @@ func (o *DeletedMonitor) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.DeletedMonitorId = all.DeletedMonitorId
 	return nil
 }

@@ -17,7 +17,8 @@ type SyntheticsPrivateLocationSecretsConfigDecryption struct {
 	// Private key for the private location.
 	Key *string `json:"key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsPrivateLocationSecretsConfigDecryption instantiates a new SyntheticsPrivateLocationSecretsConfigDecryption object
@@ -91,9 +92,11 @@ func (o *SyntheticsPrivateLocationSecretsConfigDecryption) UnmarshalJSON(bytes [
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Key = all.Key
 	return nil
 }

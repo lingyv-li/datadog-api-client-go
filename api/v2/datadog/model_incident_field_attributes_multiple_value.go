@@ -18,7 +18,8 @@ type IncidentFieldAttributesMultipleValue struct {
 	// The multiple values selected for this field.
 	Value *[]string `json:"value,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentFieldAttributesMultipleValue instantiates a new IncidentFieldAttributesMultipleValue object
@@ -132,6 +133,7 @@ func (o *IncidentFieldAttributesMultipleValue) UnmarshalJSON(bytes []byte) (err 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -140,9 +142,11 @@ func (o *IncidentFieldAttributesMultipleValue) UnmarshalJSON(bytes []byte) (err 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Type = all.Type
 	o.Value = all.Value
 	return nil

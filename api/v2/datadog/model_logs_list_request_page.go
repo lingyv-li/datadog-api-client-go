@@ -19,7 +19,8 @@ type LogsListRequestPage struct {
 	// Maximum number of logs in the response.
 	Limit *int32 `json:"limit,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsListRequestPage instantiates a new LogsListRequestPage object
@@ -133,9 +134,11 @@ func (o *LogsListRequestPage) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Cursor = all.Cursor
 	o.Limit = all.Limit
 	return nil

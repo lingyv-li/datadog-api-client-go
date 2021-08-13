@@ -19,7 +19,8 @@ type ProcessSummariesMetaPage struct {
 	// Number of results returned.
 	Size *int32 `json:"size,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewProcessSummariesMetaPage instantiates a new ProcessSummariesMetaPage object
@@ -129,9 +130,11 @@ func (o *ProcessSummariesMetaPage) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.After = all.After
 	o.Size = all.Size
 	return nil

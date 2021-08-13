@@ -20,7 +20,8 @@ type UsageIngestedSpansHour struct {
 	// Contains the total number of bytes ingested during a given hour.
 	IngestedEventsBytes *int64 `json:"ingested_events_bytes,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageIngestedSpansHour instantiates a new UsageIngestedSpansHour object
@@ -130,9 +131,11 @@ func (o *UsageIngestedSpansHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.IngestedEventsBytes = all.IngestedEventsBytes
 	return nil

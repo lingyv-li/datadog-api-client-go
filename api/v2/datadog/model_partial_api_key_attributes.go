@@ -23,7 +23,8 @@ type PartialAPIKeyAttributes struct {
 	// Name of the API key.
 	Name *string `json:"name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPartialAPIKeyAttributes instantiates a new PartialAPIKeyAttributes object
@@ -205,9 +206,11 @@ func (o *PartialAPIKeyAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CreatedAt = all.CreatedAt
 	o.Last4 = all.Last4
 	o.ModifiedAt = all.ModifiedAt

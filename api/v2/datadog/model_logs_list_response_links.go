@@ -17,7 +17,8 @@ type LogsListResponseLinks struct {
 	// Link for the next set of results. Note that the request can also be made using the POST endpoint.
 	Next *string `json:"next,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsListResponseLinks instantiates a new LogsListResponseLinks object
@@ -91,9 +92,11 @@ func (o *LogsListResponseLinks) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Next = all.Next
 	return nil
 }

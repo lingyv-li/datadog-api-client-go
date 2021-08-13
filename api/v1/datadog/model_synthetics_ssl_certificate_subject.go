@@ -29,7 +29,8 @@ type SyntheticsSSLCertificateSubject struct {
 	// Subject Alternative Name associated with the certificate.
 	AltName *string `json:"altName,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsSSLCertificateSubject instantiates a new SyntheticsSSLCertificateSubject object
@@ -319,9 +320,11 @@ func (o *SyntheticsSSLCertificateSubject) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.C = all.C
 	o.CN = all.CN
 	o.L = all.L

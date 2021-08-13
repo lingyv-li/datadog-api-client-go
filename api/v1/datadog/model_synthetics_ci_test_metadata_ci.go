@@ -19,7 +19,8 @@ type SyntheticsCITestMetadataCi struct {
 	// Name of the CI provider.
 	Provider *string `json:"provider,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSyntheticsCITestMetadataCi instantiates a new SyntheticsCITestMetadataCi object
@@ -129,9 +130,11 @@ func (o *SyntheticsCITestMetadataCi) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Pipeline = all.Pipeline
 	o.Provider = all.Provider
 	return nil

@@ -19,7 +19,8 @@ type MetricIngestedIndexedVolumeAttributes struct {
 	// Ingested volume for the given metric.
 	IngestedVolume *int64 `json:"ingested_volume,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricIngestedIndexedVolumeAttributes instantiates a new MetricIngestedIndexedVolumeAttributes object
@@ -129,9 +130,11 @@ func (o *MetricIngestedIndexedVolumeAttributes) UnmarshalJSON(bytes []byte) (err
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IndexedVolume = all.IndexedVolume
 	o.IngestedVolume = all.IngestedVolume
 	return nil

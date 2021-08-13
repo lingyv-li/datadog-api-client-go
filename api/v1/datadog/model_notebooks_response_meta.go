@@ -16,7 +16,8 @@ import (
 type NotebooksResponseMeta struct {
 	Page *NotebooksResponsePage `json:"page,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewNotebooksResponseMeta instantiates a new NotebooksResponseMeta object
@@ -90,9 +91,14 @@ func (o *NotebooksResponseMeta) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Page; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Page = all.Page
 	return nil
 }

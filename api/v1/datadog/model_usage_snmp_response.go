@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // UsageSNMPResponse Response containing the number of SNMP devices for each hour for a given organization.
@@ -17,7 +18,8 @@ type UsageSNMPResponse struct {
 	// Get hourly usage for SNMP devices.
 	Usage *[]UsageSNMPHour `json:"usage,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageSNMPResponse instantiates a new UsageSNMPResponse object
@@ -91,9 +93,17 @@ func (o *UsageSNMPResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Usage = all.Usage
 	return nil
 }

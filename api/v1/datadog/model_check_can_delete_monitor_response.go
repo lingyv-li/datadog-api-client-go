@@ -11,6 +11,7 @@ package datadog
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 )
 
 // CheckCanDeleteMonitorResponse Response of monitor IDs that can or can't be safely deleted.
@@ -19,7 +20,8 @@ type CheckCanDeleteMonitorResponse struct {
 	// A mapping of Monitor ID to strings denoting where it's used.
 	Errors *map[string][]string `json:"errors,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewCheckCanDeleteMonitorResponse instantiates a new CheckCanDeleteMonitorResponse object
@@ -132,9 +134,20 @@ func (o *CheckCanDeleteMonitorResponse) UnmarshalJSON(bytes []byte) (err error) 
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Data; !o.ContainsUnparsedObject && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Errors; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Data = all.Data
 	o.Errors = all.Errors
 	return nil

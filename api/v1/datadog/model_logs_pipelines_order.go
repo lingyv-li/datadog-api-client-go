@@ -18,7 +18,8 @@ type LogsPipelinesOrder struct {
 	// Ordered Array of `<PIPELINE_ID>` strings, the order of pipeline IDs in the array define the overall Pipelines order for Datadog.
 	PipelineIds []string `json:"pipeline_ids"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewLogsPipelinesOrder instantiates a new LogsPipelinesOrder object
@@ -95,9 +96,11 @@ func (o *LogsPipelinesOrder) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.PipelineIds = all.PipelineIds
 	return nil
 }

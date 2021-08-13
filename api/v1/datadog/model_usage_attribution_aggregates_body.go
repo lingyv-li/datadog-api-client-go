@@ -21,7 +21,8 @@ type UsageAttributionAggregatesBody struct {
 	// The value for a given field.
 	Value *float64 `json:"value,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageAttributionAggregatesBody instantiates a new UsageAttributionAggregatesBody object
@@ -167,9 +168,11 @@ func (o *UsageAttributionAggregatesBody) UnmarshalJSON(bytes []byte) (err error)
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AggType = all.AggType
 	o.Field = all.Field
 	o.Value = all.Value

@@ -25,7 +25,8 @@ type MetricsQueryUnit struct {
 	// Abbreviation of the unit.
 	ShortName *string `json:"short_name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewMetricsQueryUnit instantiates a new MetricsQueryUnit object
@@ -243,9 +244,11 @@ func (o *MetricsQueryUnit) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Family = all.Family
 	o.Name = all.Name
 	o.Plural = all.Plural

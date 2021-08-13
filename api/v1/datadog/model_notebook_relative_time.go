@@ -17,7 +17,8 @@ import (
 type NotebookRelativeTime struct {
 	LiveSpan WidgetLiveSpan `json:"live_span"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewNotebookRelativeTime instantiates a new NotebookRelativeTime object
@@ -94,6 +95,7 @@ func (o *NotebookRelativeTime) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
@@ -102,9 +104,11 @@ func (o *NotebookRelativeTime) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.LiveSpan = all.LiveSpan
 	return nil
 }

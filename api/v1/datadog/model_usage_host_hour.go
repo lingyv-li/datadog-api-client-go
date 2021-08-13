@@ -44,7 +44,8 @@ type UsageHostHour struct {
 	// Contains the total number of hosts that reported via vSphere integration (and were NOT running the Datadog Agent).
 	VsphereHostCount *int64 `json:"vsphere_host_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageHostHour instantiates a new UsageHostHour object
@@ -586,9 +587,11 @@ func (o *UsageHostHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.AgentHostCount = all.AgentHostCount
 	o.AlibabaHostCount = all.AlibabaHostCount
 	o.ApmAzureAppServiceHostCount = all.ApmAzureAppServiceHostCount

@@ -21,7 +21,8 @@ type IncidentServicesResponseMetaPagination struct {
 	// Maximum size of pages to return.
 	Size *int64 `json:"size,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIncidentServicesResponseMetaPagination instantiates a new IncidentServicesResponseMetaPagination object
@@ -167,9 +168,11 @@ func (o *IncidentServicesResponseMetaPagination) UnmarshalJSON(bytes []byte) (er
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.NextOffset = all.NextOffset
 	o.Offset = all.Offset
 	o.Size = all.Size

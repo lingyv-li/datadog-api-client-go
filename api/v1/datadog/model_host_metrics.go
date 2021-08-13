@@ -21,7 +21,8 @@ type HostMetrics struct {
 	// The system load over the last 15 minutes.
 	Load *float64 `json:"load,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHostMetrics instantiates a new HostMetrics object
@@ -167,9 +168,11 @@ func (o *HostMetrics) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Cpu = all.Cpu
 	o.Iowait = all.Iowait
 	o.Load = all.Load

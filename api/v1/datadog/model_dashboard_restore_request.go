@@ -11,6 +11,7 @@ package datadog
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 )
 
 // DashboardRestoreRequest Dashboard restore request body.
@@ -18,7 +19,8 @@ type DashboardRestoreRequest struct {
 	// List of dashboard bulk action request data objects.
 	Data []DashboardBulkActionData `json:"data"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewDashboardRestoreRequest instantiates a new DashboardRestoreRequest object
@@ -95,9 +97,17 @@ func (o *DashboardRestoreRequest) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Data; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(v))
+		}
+	}
+
 	o.Data = all.Data
 	return nil
 }

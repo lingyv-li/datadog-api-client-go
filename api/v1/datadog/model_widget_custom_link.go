@@ -23,7 +23,8 @@ type WidgetCustomLink struct {
 	// The label ID that refers to a context menu link. Can be `logs`, `hosts`, `traces`, `profiles`, `processes`, `containers`, or `rum`.
 	OverrideLabel *string `json:"override_label,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewWidgetCustomLink instantiates a new WidgetCustomLink object
@@ -205,9 +206,11 @@ func (o *WidgetCustomLink) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IsHidden = all.IsHidden
 	o.Label = all.Label
 	o.Link = all.Link

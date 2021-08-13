@@ -21,7 +21,8 @@ type PartialApplicationKeyAttributes struct {
 	// Name of the application key.
 	Name *string `json:"name,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewPartialApplicationKeyAttributes instantiates a new PartialApplicationKeyAttributes object
@@ -167,9 +168,11 @@ func (o *PartialApplicationKeyAttributes) UnmarshalJSON(bytes []byte) (err error
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CreatedAt = all.CreatedAt
 	o.Last4 = all.Last4
 	o.Name = all.Name

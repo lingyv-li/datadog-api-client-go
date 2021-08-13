@@ -24,7 +24,8 @@ type UserInvitationDataAttributes struct {
 	// UUID of the user invitation.
 	Uuid *string `json:"uuid,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUserInvitationDataAttributes instantiates a new UserInvitationDataAttributes object
@@ -206,9 +207,11 @@ func (o *UserInvitationDataAttributes) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.CreatedAt = all.CreatedAt
 	o.ExpiresAt = all.ExpiresAt
 	o.InviteType = all.InviteType

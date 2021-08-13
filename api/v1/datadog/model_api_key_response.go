@@ -16,7 +16,8 @@ import (
 type ApiKeyResponse struct {
 	ApiKey *ApiKey `json:"api_key,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewApiKeyResponse instantiates a new ApiKeyResponse object
@@ -90,9 +91,14 @@ func (o *ApiKeyResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.ApiKey; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.ApiKey = all.ApiKey
 	return nil
 }

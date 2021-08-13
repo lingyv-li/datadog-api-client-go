@@ -18,7 +18,8 @@ type IncidentFieldAttributes struct {
 	IncidentFieldAttributesSingleValue   *IncidentFieldAttributesSingleValue
 
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject interface{}
+	UnparsedObject         interface{}
+	ContainsUnparsedObject bool
 }
 
 // IncidentFieldAttributesMultipleValueAsIncidentFieldAttributes is a convenience function that returns IncidentFieldAttributesMultipleValue wrapped in IncidentFieldAttributes
@@ -73,6 +74,7 @@ func (dst *IncidentFieldAttributes) UnmarshalJSON(data []byte) error {
 		// reset to nil
 		dst.IncidentFieldAttributesMultipleValue = nil
 		dst.IncidentFieldAttributesSingleValue = nil
+		dst.ContainsUnparsedObject = true
 		return json.Unmarshal(data, &dst.UnparsedObject)
 	} else {
 		return nil // exactly one match

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
 // UsageLogsByIndexResponse Response containing the number of indexed logs for each hour and index for a given organization.
@@ -17,7 +18,8 @@ type UsageLogsByIndexResponse struct {
 	// An array of objects regarding hourly usage of logs by index response.
 	Usage *[]UsageLogsByIndexHour `json:"usage,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageLogsByIndexResponse instantiates a new UsageLogsByIndexResponse object
@@ -91,9 +93,17 @@ func (o *UsageLogsByIndexResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
+	if !o.ContainsUnparsedObject {
+		if v := all.Usage; v != nil {
+			o.ContainsUnparsedObject = containsUnparsedObject(reflect.ValueOf(*v))
+		}
+	}
+
 	o.Usage = all.Usage
 	return nil
 }

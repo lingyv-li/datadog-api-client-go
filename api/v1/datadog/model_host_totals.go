@@ -19,7 +19,8 @@ type HostTotals struct {
 	// Number of host that are UP and reporting to Datadog.
 	TotalUp *int64 `json:"total_up,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewHostTotals instantiates a new HostTotals object
@@ -129,9 +130,11 @@ func (o *HostTotals) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.TotalActive = all.TotalActive
 	o.TotalUp = all.TotalUp
 	return nil

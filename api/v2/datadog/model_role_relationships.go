@@ -17,7 +17,8 @@ type RoleRelationships struct {
 	Permissions *RelationshipToPermissions `json:"permissions,omitempty"`
 	Users       *RelationshipToUsers       `json:"users,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewRoleRelationships instantiates a new RoleRelationships object
@@ -127,9 +128,18 @@ func (o *RoleRelationships) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+	if v := all.Permissions; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
+	if v := all.Users; !o.ContainsUnparsedObject && v != nil && v.ContainsUnparsedObject {
+		o.ContainsUnparsedObject = true
+	}
+
 	o.Permissions = all.Permissions
 	o.Users = all.Users
 	return nil

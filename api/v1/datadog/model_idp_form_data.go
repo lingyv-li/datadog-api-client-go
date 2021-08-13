@@ -19,7 +19,8 @@ type IdpFormData struct {
 	// The path to the XML metadata file you wish to upload.
 	IdpFile *os.File `json:"idp_file"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewIdpFormData instantiates a new IdpFormData object
@@ -96,9 +97,11 @@ func (o *IdpFormData) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IdpFile = all.IdpFile
 	return nil
 }

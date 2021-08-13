@@ -22,7 +22,8 @@ type UsageLambdaHour struct {
 	// Contains the sum of invocations of all functions.
 	InvocationsSum *int64 `json:"invocations_sum,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageLambdaHour instantiates a new UsageLambdaHour object
@@ -168,9 +169,11 @@ func (o *UsageLambdaHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.FuncCount = all.FuncCount
 	o.Hour = all.Hour
 	o.InvocationsSum = all.InvocationsSum

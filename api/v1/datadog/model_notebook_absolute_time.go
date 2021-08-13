@@ -23,7 +23,8 @@ type NotebookAbsoluteTime struct {
 	// The start time.
 	Start time.Time `json:"start"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewNotebookAbsoluteTime instantiates a new NotebookAbsoluteTime object
@@ -169,9 +170,11 @@ func (o *NotebookAbsoluteTime) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.End = all.End
 	o.Live = all.Live
 	o.Start = all.Start

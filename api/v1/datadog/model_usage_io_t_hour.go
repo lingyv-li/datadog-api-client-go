@@ -20,7 +20,8 @@ type UsageIoTHour struct {
 	// The total number of IoT devices during a given hour.
 	IotDeviceCount *int64 `json:"iot_device_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageIoTHour instantiates a new UsageIoTHour object
@@ -130,9 +131,11 @@ func (o *UsageIoTHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Hour = all.Hour
 	o.IotDeviceCount = all.IotDeviceCount
 	return nil

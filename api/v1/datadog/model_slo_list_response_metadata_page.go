@@ -19,7 +19,8 @@ type SLOListResponseMetadataPage struct {
 	// The total number of resources that match the parameters and filters in the request. This attribute can be used by a client to determine the total number of pages.
 	TotalFilteredCount *int64 `json:"total_filtered_count,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOListResponseMetadataPage instantiates a new SLOListResponseMetadataPage object
@@ -129,9 +130,11 @@ func (o *SLOListResponseMetadataPage) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.TotalCount = all.TotalCount
 	o.TotalFilteredCount = all.TotalFilteredCount
 	return nil

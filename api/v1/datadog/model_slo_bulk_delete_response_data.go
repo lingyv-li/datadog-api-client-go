@@ -19,7 +19,8 @@ type SLOBulkDeleteResponseData struct {
 	// An array of service level objective object IDs that indicates which objects that were modified (objects for which at least one threshold was deleted, but that were not completely deleted).
 	Updated *[]string `json:"updated,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLOBulkDeleteResponseData instantiates a new SLOBulkDeleteResponseData object
@@ -129,9 +130,11 @@ func (o *SLOBulkDeleteResponseData) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Deleted = all.Deleted
 	o.Updated = all.Updated
 	return nil

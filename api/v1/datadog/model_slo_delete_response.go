@@ -19,7 +19,8 @@ type SLODeleteResponse struct {
 	// An dictionary containing the ID of the SLO as key and a deletion error as value.
 	Errors *map[string]string `json:"errors,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewSLODeleteResponse instantiates a new SLODeleteResponse object
@@ -129,9 +130,11 @@ func (o *SLODeleteResponse) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.Data = all.Data
 	o.Errors = all.Errors
 	return nil

@@ -23,7 +23,8 @@ type UsageLogsByRetentionHour struct {
 	// The retention period in days or \"custom\" for all custom retention usage.
 	Retention *string `json:"retention,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
-	UnparsedObject map[string]interface{} `json:-`
+	UnparsedObject         map[string]interface{} `json:-`
+	ContainsUnparsedObject bool                   `json:-`
 }
 
 // NewUsageLogsByRetentionHour instantiates a new UsageLogsByRetentionHour object
@@ -205,9 +206,11 @@ func (o *UsageLogsByRetentionHour) UnmarshalJSON(bytes []byte) (err error) {
 		if err != nil {
 			return err
 		}
+		o.ContainsUnparsedObject = true
 		o.UnparsedObject = raw
 		return nil
 	}
+
 	o.IndexedEventsCount = all.IndexedEventsCount
 	o.LiveIndexedEventsCount = all.LiveIndexedEventsCount
 	o.RehydratedIndexedEventsCount = all.RehydratedIndexedEventsCount
