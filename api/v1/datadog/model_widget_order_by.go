@@ -41,7 +41,11 @@ func (v *WidgetOrderBy) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetOrderBy(value)
+	ev, err := NewWidgetOrderByFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

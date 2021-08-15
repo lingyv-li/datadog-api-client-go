@@ -18,6 +18,7 @@ type NotebookCellCreateRequestAttributes struct {
 	NotebookHeatMapCellAttributes      *NotebookHeatMapCellAttributes
 	NotebookLogStreamCellAttributes    *NotebookLogStreamCellAttributes
 	NotebookMarkdownCellAttributes     *NotebookMarkdownCellAttributes
+	NotebookQueryValueCellAttributes   *NotebookQueryValueCellAttributes
 	NotebookTimeseriesCellAttributes   *NotebookTimeseriesCellAttributes
 	NotebookToplistCellAttributes      *NotebookToplistCellAttributes
 
@@ -43,6 +44,11 @@ func NotebookLogStreamCellAttributesAsNotebookCellCreateRequestAttributes(v *Not
 // NotebookMarkdownCellAttributesAsNotebookCellCreateRequestAttributes is a convenience function that returns NotebookMarkdownCellAttributes wrapped in NotebookCellCreateRequestAttributes
 func NotebookMarkdownCellAttributesAsNotebookCellCreateRequestAttributes(v *NotebookMarkdownCellAttributes) NotebookCellCreateRequestAttributes {
 	return NotebookCellCreateRequestAttributes{NotebookMarkdownCellAttributes: v}
+}
+
+// NotebookQueryValueCellAttributesAsNotebookCellCreateRequestAttributes is a convenience function that returns NotebookQueryValueCellAttributes wrapped in NotebookCellCreateRequestAttributes
+func NotebookQueryValueCellAttributesAsNotebookCellCreateRequestAttributes(v *NotebookQueryValueCellAttributes) NotebookCellCreateRequestAttributes {
+	return NotebookCellCreateRequestAttributes{NotebookQueryValueCellAttributes: v}
 }
 
 // NotebookTimeseriesCellAttributesAsNotebookCellCreateRequestAttributes is a convenience function that returns NotebookTimeseriesCellAttributes wrapped in NotebookCellCreateRequestAttributes
@@ -161,12 +167,30 @@ func (dst *NotebookCellCreateRequestAttributes) UnmarshalJSON(data []byte) error
 		dst.NotebookLogStreamCellAttributes = nil
 	}
 
+	// try to unmarshal data into NotebookQueryValueCellAttributes
+	err = json.Unmarshal(data, &dst.NotebookQueryValueCellAttributes)
+	if err == nil {
+		if dst.NotebookQueryValueCellAttributes != nil && dst.NotebookQueryValueCellAttributes.UnparsedObject == nil {
+			jsonNotebookQueryValueCellAttributes, _ := json.Marshal(dst.NotebookQueryValueCellAttributes)
+			if string(jsonNotebookQueryValueCellAttributes) == "{}" { // empty struct
+				dst.NotebookQueryValueCellAttributes = nil
+			} else {
+				match++
+			}
+		} else {
+			dst.NotebookQueryValueCellAttributes = nil
+		}
+	} else {
+		dst.NotebookQueryValueCellAttributes = nil
+	}
+
 	if match != 1 { // more than 1 match
 		// reset to nil
 		dst.NotebookDistributionCellAttributes = nil
 		dst.NotebookHeatMapCellAttributes = nil
 		dst.NotebookLogStreamCellAttributes = nil
 		dst.NotebookMarkdownCellAttributes = nil
+		dst.NotebookQueryValueCellAttributes = nil
 		dst.NotebookTimeseriesCellAttributes = nil
 		dst.NotebookToplistCellAttributes = nil
 		return json.Unmarshal(data, &dst.UnparsedObject)
@@ -191,6 +215,10 @@ func (src NotebookCellCreateRequestAttributes) MarshalJSON() ([]byte, error) {
 
 	if src.NotebookMarkdownCellAttributes != nil {
 		return json.Marshal(&src.NotebookMarkdownCellAttributes)
+	}
+
+	if src.NotebookQueryValueCellAttributes != nil {
+		return json.Marshal(&src.NotebookQueryValueCellAttributes)
 	}
 
 	if src.NotebookTimeseriesCellAttributes != nil {
@@ -223,6 +251,10 @@ func (obj *NotebookCellCreateRequestAttributes) GetActualInstance() interface{} 
 
 	if obj.NotebookMarkdownCellAttributes != nil {
 		return obj.NotebookMarkdownCellAttributes
+	}
+
+	if obj.NotebookQueryValueCellAttributes != nil {
+		return obj.NotebookQueryValueCellAttributes
 	}
 
 	if obj.NotebookTimeseriesCellAttributes != nil {

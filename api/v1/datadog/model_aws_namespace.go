@@ -47,7 +47,11 @@ func (v *AWSNamespace) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = AWSNamespace(value)
+	ev, err := NewAWSNamespaceFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

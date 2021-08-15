@@ -35,7 +35,11 @@ func (v *DashboardResourceType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = DashboardResourceType(value)
+	ev, err := NewDashboardResourceTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

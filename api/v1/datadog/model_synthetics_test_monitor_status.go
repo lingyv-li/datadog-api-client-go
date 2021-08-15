@@ -39,7 +39,11 @@ func (v *SyntheticsTestMonitorStatus) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsTestMonitorStatus(value)
+	ev, err := NewSyntheticsTestMonitorStatusFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -77,7 +77,11 @@ func (v *UsageAttributionSort) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = UsageAttributionSort(value)
+	ev, err := NewUsageAttributionSortFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

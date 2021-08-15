@@ -35,7 +35,11 @@ func (v *SyntheticsAssertionJSONPathOperator) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsAssertionJSONPathOperator(value)
+	ev, err := NewSyntheticsAssertionJSONPathOperatorFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

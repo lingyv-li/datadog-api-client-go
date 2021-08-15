@@ -39,7 +39,11 @@ func (v *TreeMapGroupBy) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TreeMapGroupBy(value)
+	ev, err := NewTreeMapGroupByFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

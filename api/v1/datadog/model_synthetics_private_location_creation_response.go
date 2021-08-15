@@ -15,7 +15,7 @@ import (
 // SyntheticsPrivateLocationCreationResponse Object that contains the new private location, the public key for result encryption, and the configuration skeleton.
 type SyntheticsPrivateLocationCreationResponse struct {
 	// Configuration skeleton for the private location. See installation instructions of the private location on how to use this configuration.
-	Config           *interface{}                                               `json:"config,omitempty"`
+	Config           *map[string]interface{}                                    `json:"config,omitempty"`
 	PrivateLocation  *SyntheticsPrivateLocation                                 `json:"private_location,omitempty"`
 	ResultEncryption *SyntheticsPrivateLocationCreationResponseResultEncryption `json:"result_encryption,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
@@ -40,9 +40,9 @@ func NewSyntheticsPrivateLocationCreationResponseWithDefaults() *SyntheticsPriva
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
-func (o *SyntheticsPrivateLocationCreationResponse) GetConfig() interface{} {
+func (o *SyntheticsPrivateLocationCreationResponse) GetConfig() map[string]interface{} {
 	if o == nil || o.Config == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return *o.Config
@@ -50,7 +50,7 @@ func (o *SyntheticsPrivateLocationCreationResponse) GetConfig() interface{} {
 
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyntheticsPrivateLocationCreationResponse) GetConfigOk() (*interface{}, bool) {
+func (o *SyntheticsPrivateLocationCreationResponse) GetConfigOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Config == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *SyntheticsPrivateLocationCreationResponse) HasConfig() bool {
 	return false
 }
 
-// SetConfig gets a reference to the given interface{} and assigns it to the Config field.
-func (o *SyntheticsPrivateLocationCreationResponse) SetConfig(v interface{}) {
+// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
+func (o *SyntheticsPrivateLocationCreationResponse) SetConfig(v map[string]interface{}) {
 	o.Config = &v
 }
 
@@ -155,7 +155,7 @@ func (o SyntheticsPrivateLocationCreationResponse) MarshalJSON() ([]byte, error)
 func (o *SyntheticsPrivateLocationCreationResponse) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		Config           *interface{}                                               `json:"config,omitempty"`
+		Config           *map[string]interface{}                                    `json:"config,omitempty"`
 		PrivateLocation  *SyntheticsPrivateLocation                                 `json:"private_location,omitempty"`
 		ResultEncryption *SyntheticsPrivateLocationCreationResponseResultEncryption `json:"result_encryption,omitempty"`
 	}{}

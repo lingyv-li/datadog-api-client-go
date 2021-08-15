@@ -35,7 +35,11 @@ func (v *GroupWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = GroupWidgetDefinitionType(value)
+	ev, err := NewGroupWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

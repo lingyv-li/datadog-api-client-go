@@ -37,7 +37,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -116,7 +116,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -172,7 +172,7 @@ This endpoint does not have optional parameters.
 
 ## CreateAWSLambdaARN
 
-> interface{} CreateAWSLambdaARN(ctx, body)
+> map[string]interface{} CreateAWSLambdaARN(ctx, body)
 
 Attach the Lambda ARN of the Lambda created for the Datadog-AWS log collection to your AWS account ID to enable log collection.
 
@@ -186,7 +186,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -202,7 +202,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSLogsIntegrationApi.CreateAWSLambdaARN`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateAWSLambdaARN`: interface{}
+    // response from `CreateAWSLambdaARN`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSLogsIntegrationApi.CreateAWSLambdaARN:\n%s\n", responseContent)
 }
@@ -224,7 +224,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -242,7 +242,7 @@ This endpoint does not have optional parameters.
 
 ## DeleteAWSLambdaARN
 
-> interface{} DeleteAWSLambdaARN(ctx, body)
+> map[string]interface{} DeleteAWSLambdaARN(ctx, body)
 
 Delete a Datadog-AWS logs configuration by removing the specific Lambda ARN associated with a given AWS account.
 
@@ -256,7 +256,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -272,7 +272,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSLogsIntegrationApi.DeleteAWSLambdaARN`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteAWSLambdaARN`: interface{}
+    // response from `DeleteAWSLambdaARN`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSLogsIntegrationApi.DeleteAWSLambdaARN:\n%s\n", responseContent)
 }
@@ -294,7 +294,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -312,7 +312,7 @@ This endpoint does not have optional parameters.
 
 ## EnableAWSLogServices
 
-> interface{} EnableAWSLogServices(ctx, body)
+> map[string]interface{} EnableAWSLogServices(ctx, body)
 
 Enable automatic log collection for a list of services. This should be run after running `CreateAWSLambdaARN` to save the configuration.
 
@@ -326,7 +326,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -342,7 +342,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSLogsIntegrationApi.EnableAWSLogServices`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EnableAWSLogServices`: interface{}
+    // response from `EnableAWSLogServices`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSLogsIntegrationApi.EnableAWSLogServices:\n%s\n", responseContent)
 }
@@ -364,7 +364,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -396,7 +396,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -461,7 +461,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {

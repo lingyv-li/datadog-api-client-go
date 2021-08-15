@@ -37,7 +37,11 @@ func (v *WidgetEventSize) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetEventSize(value)
+	ev, err := NewWidgetEventSizeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

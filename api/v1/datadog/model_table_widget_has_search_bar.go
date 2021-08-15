@@ -39,7 +39,11 @@ func (v *TableWidgetHasSearchBar) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TableWidgetHasSearchBar(value)
+	ev, err := NewTableWidgetHasSearchBarFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

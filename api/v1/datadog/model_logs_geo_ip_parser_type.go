@@ -35,7 +35,11 @@ func (v *LogsGeoIPParserType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsGeoIPParserType(value)
+	ev, err := NewLogsGeoIPParserTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

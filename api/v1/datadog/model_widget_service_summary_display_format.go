@@ -39,7 +39,11 @@ func (v *WidgetServiceSummaryDisplayFormat) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetServiceSummaryDisplayFormat(value)
+	ev, err := NewWidgetServiceSummaryDisplayFormatFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

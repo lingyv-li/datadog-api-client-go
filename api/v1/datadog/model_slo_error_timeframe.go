@@ -41,7 +41,11 @@ func (v *SLOErrorTimeframe) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SLOErrorTimeframe(value)
+	ev, err := NewSLOErrorTimeframeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

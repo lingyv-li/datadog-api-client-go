@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **ErrorMessage** | Pointer to **string** | The API test error message. | [optional] 
 **EventType** | Pointer to [**SyntheticsTestProcessStatus**](SyntheticsTestProcessStatus.md) |  | [optional] 
 **HttpStatusCode** | Pointer to **int64** | The API test HTTP status code. | [optional] 
-**RequestHeaders** | Pointer to **map[string]interface{}** | Request header object used for the API test. | [optional] 
+**RequestHeaders** | Pointer to **map[string]map[string]interface{}** | Request header object used for the API test. | [optional] 
 **ResponseBody** | Pointer to **string** | Response body returned for the API test. | [optional] 
-**ResponseHeaders** | Pointer to **map[string]interface{}** | Response headers returned for the API test. | [optional] 
+**ResponseHeaders** | Pointer to **map[string]map[string]interface{}** | Response headers returned for the API test. | [optional] 
 **ResponseSize** | Pointer to **int64** | Global size in byte of the API test response. | [optional] 
 **Timings** | Pointer to [**SyntheticsTiming**](SyntheticsTiming.md) |  | [optional] 
 
@@ -161,20 +161,20 @@ HasHttpStatusCode returns a boolean if a field has been set.
 
 ### GetRequestHeaders
 
-`func (o *SyntheticsAPITestResultData) GetRequestHeaders() map[string]interface{}`
+`func (o *SyntheticsAPITestResultData) GetRequestHeaders() map[string]map[string]interface{}`
 
 GetRequestHeaders returns the RequestHeaders field if non-nil, zero value otherwise.
 
 ### GetRequestHeadersOk
 
-`func (o *SyntheticsAPITestResultData) GetRequestHeadersOk() (*map[string]interface{}, bool)`
+`func (o *SyntheticsAPITestResultData) GetRequestHeadersOk() (*map[string]map[string]interface{}, bool)`
 
 GetRequestHeadersOk returns a tuple with the RequestHeaders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestHeaders
 
-`func (o *SyntheticsAPITestResultData) SetRequestHeaders(v map[string]interface{})`
+`func (o *SyntheticsAPITestResultData) SetRequestHeaders(v map[string]map[string]interface{})`
 
 SetRequestHeaders sets RequestHeaders field to given value.
 
@@ -211,20 +211,20 @@ HasResponseBody returns a boolean if a field has been set.
 
 ### GetResponseHeaders
 
-`func (o *SyntheticsAPITestResultData) GetResponseHeaders() map[string]interface{}`
+`func (o *SyntheticsAPITestResultData) GetResponseHeaders() map[string]map[string]interface{}`
 
 GetResponseHeaders returns the ResponseHeaders field if non-nil, zero value otherwise.
 
 ### GetResponseHeadersOk
 
-`func (o *SyntheticsAPITestResultData) GetResponseHeadersOk() (*map[string]interface{}, bool)`
+`func (o *SyntheticsAPITestResultData) GetResponseHeadersOk() (*map[string]map[string]interface{}, bool)`
 
 GetResponseHeadersOk returns a tuple with the ResponseHeaders field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResponseHeaders
 
-`func (o *SyntheticsAPITestResultData) SetResponseHeaders(v map[string]interface{})`
+`func (o *SyntheticsAPITestResultData) SetResponseHeaders(v map[string]map[string]interface{})`
 
 SetResponseHeaders sets ResponseHeaders field to given value.
 

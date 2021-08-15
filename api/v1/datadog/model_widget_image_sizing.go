@@ -49,7 +49,11 @@ func (v *WidgetImageSizing) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetImageSizing(value)
+	ev, err := NewWidgetImageSizingFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -37,7 +37,11 @@ func (v *QuerySortOrder) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = QuerySortOrder(value)
+	ev, err := NewQuerySortOrderFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

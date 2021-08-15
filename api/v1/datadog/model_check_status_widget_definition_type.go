@@ -35,7 +35,11 @@ func (v *CheckStatusWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = CheckStatusWidgetDefinitionType(value)
+	ev, err := NewCheckStatusWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

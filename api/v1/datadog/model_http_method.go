@@ -47,7 +47,11 @@ func (v *HTTPMethod) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = HTTPMethod(value)
+	ev, err := NewHTTPMethodFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

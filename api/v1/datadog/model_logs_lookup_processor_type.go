@@ -35,7 +35,11 @@ func (v *LogsLookupProcessorType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsLookupProcessorType(value)
+	ev, err := NewLogsLookupProcessorTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

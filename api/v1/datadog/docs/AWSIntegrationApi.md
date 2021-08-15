@@ -35,7 +35,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -91,7 +91,7 @@ This endpoint does not have optional parameters.
 
 ## CreateAWSTagFilter
 
-> interface{} CreateAWSTagFilter(ctx, body)
+> map[string]interface{} CreateAWSTagFilter(ctx, body)
 
 Set an AWS tag filter.
 
@@ -105,7 +105,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -121,7 +121,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSIntegrationApi.CreateAWSTagFilter`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateAWSTagFilter`: interface{}
+    // response from `CreateAWSTagFilter`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSIntegrationApi.CreateAWSTagFilter:\n%s\n", responseContent)
 }
@@ -143,7 +143,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -175,7 +175,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -231,7 +231,7 @@ This endpoint does not have optional parameters.
 
 ## DeleteAWSAccount
 
-> interface{} DeleteAWSAccount(ctx, body)
+> map[string]interface{} DeleteAWSAccount(ctx, body)
 
 Delete a Datadog-AWS integration matching the specified `account_id` and `role_name parameters`.
 
@@ -245,7 +245,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -261,7 +261,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSIntegrationApi.DeleteAWSAccount`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteAWSAccount`: interface{}
+    // response from `DeleteAWSAccount`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSIntegrationApi.DeleteAWSAccount:\n%s\n", responseContent)
 }
@@ -283,7 +283,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -301,7 +301,7 @@ This endpoint does not have optional parameters.
 
 ## DeleteAWSTagFilter
 
-> interface{} DeleteAWSTagFilter(ctx, body)
+> map[string]interface{} DeleteAWSTagFilter(ctx, body)
 
 Delete a tag filtering entry.
 
@@ -315,7 +315,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -331,7 +331,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSIntegrationApi.DeleteAWSTagFilter`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteAWSTagFilter`: interface{}
+    // response from `DeleteAWSTagFilter`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSIntegrationApi.DeleteAWSTagFilter:\n%s\n", responseContent)
 }
@@ -353,7 +353,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -385,7 +385,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -465,7 +465,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -535,7 +535,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -586,7 +586,7 @@ This endpoint does not have optional parameters.
 
 ## UpdateAWSAccount
 
-> interface{} UpdateAWSAccount(ctx, body, datadog.UpdateAWSAccountOptionalParameters{})
+> map[string]interface{} UpdateAWSAccount(ctx, body, datadog.UpdateAWSAccountOptionalParameters{})
 
 Update a Datadog-Amazon Web Services integration.
 
@@ -600,7 +600,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -624,7 +624,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AWSIntegrationApi.UpdateAWSAccount`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateAWSAccount`: interface{}
+    // response from `UpdateAWSAccount`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AWSIntegrationApi.UpdateAWSAccount:\n%s\n", responseContent)
 }
@@ -653,7 +653,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 

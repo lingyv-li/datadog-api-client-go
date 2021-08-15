@@ -47,7 +47,11 @@ func (v *EventAlertType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = EventAlertType(value)
+	ev, err := NewEventAlertTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

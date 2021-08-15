@@ -35,7 +35,11 @@ func (v *LogsDateRemapperType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsDateRemapperType(value)
+	ev, err := NewLogsDateRemapperTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

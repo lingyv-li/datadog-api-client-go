@@ -1,4 +1,4 @@
-module github.com/DataDog/datadog-api-client-go
+module github.com/lingyv-li/datadog-api-client-go
 
 go 1.14
 

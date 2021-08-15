@@ -35,7 +35,11 @@ func (v *EventTimelineWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = EventTimelineWidgetDefinitionType(value)
+	ev, err := NewEventTimelineWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

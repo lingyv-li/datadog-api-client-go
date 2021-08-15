@@ -35,7 +35,11 @@ func (v *NotebookCellResourceType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = NotebookCellResourceType(value)
+	ev, err := NewNotebookCellResourceTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -39,7 +39,11 @@ func (v *WidgetDisplayType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetDisplayType(value)
+	ev, err := NewWidgetDisplayTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

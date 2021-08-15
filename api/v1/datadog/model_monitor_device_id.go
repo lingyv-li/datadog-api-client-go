@@ -51,7 +51,11 @@ func (v *MonitorDeviceID) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = MonitorDeviceID(value)
+	ev, err := NewMonitorDeviceIDFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

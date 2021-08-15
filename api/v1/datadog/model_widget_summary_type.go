@@ -39,7 +39,11 @@ func (v *WidgetSummaryType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetSummaryType(value)
+	ev, err := NewWidgetSummaryTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

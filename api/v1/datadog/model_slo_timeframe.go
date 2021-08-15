@@ -41,7 +41,11 @@ func (v *SLOTimeframe) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SLOTimeframe(value)
+	ev, err := NewSLOTimeframeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

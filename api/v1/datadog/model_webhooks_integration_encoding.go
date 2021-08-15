@@ -37,7 +37,11 @@ func (v *WebhooksIntegrationEncoding) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WebhooksIntegrationEncoding(value)
+	ev, err := NewWebhooksIntegrationEncodingFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

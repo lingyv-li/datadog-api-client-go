@@ -35,7 +35,11 @@ func (v *ListStreamResponseFormat) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ListStreamResponseFormat(value)
+	ev, err := NewListStreamResponseFormatFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

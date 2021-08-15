@@ -37,7 +37,11 @@ func (v *DashboardReflowType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = DashboardReflowType(value)
+	ev, err := NewDashboardReflowTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

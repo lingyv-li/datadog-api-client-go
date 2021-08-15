@@ -19,7 +19,7 @@ type SyntheticsStep struct {
 	// The name of the step.
 	Name *string `json:"name,omitempty"`
 	// The parameters of the step.
-	Params *interface{} `json:"params,omitempty"`
+	Params *map[string]interface{} `json:"params,omitempty"`
 	// The time before declaring a step failed.
 	Timeout *int64              `json:"timeout,omitempty"`
 	Type    *SyntheticsStepType `json:"type,omitempty"`
@@ -109,9 +109,9 @@ func (o *SyntheticsStep) SetName(v string) {
 }
 
 // GetParams returns the Params field value if set, zero value otherwise.
-func (o *SyntheticsStep) GetParams() interface{} {
+func (o *SyntheticsStep) GetParams() map[string]interface{} {
 	if o == nil || o.Params == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return *o.Params
@@ -119,7 +119,7 @@ func (o *SyntheticsStep) GetParams() interface{} {
 
 // GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyntheticsStep) GetParamsOk() (*interface{}, bool) {
+func (o *SyntheticsStep) GetParamsOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Params == nil {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *SyntheticsStep) HasParams() bool {
 	return false
 }
 
-// SetParams gets a reference to the given interface{} and assigns it to the Params field.
-func (o *SyntheticsStep) SetParams(v interface{}) {
+// SetParams gets a reference to the given map[string]interface{} and assigns it to the Params field.
+func (o *SyntheticsStep) SetParams(v map[string]interface{}) {
 	o.Params = &v
 }
 
@@ -230,11 +230,11 @@ func (o SyntheticsStep) MarshalJSON() ([]byte, error) {
 func (o *SyntheticsStep) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		AllowFailure *bool               `json:"allowFailure,omitempty"`
-		Name         *string             `json:"name,omitempty"`
-		Params       *interface{}        `json:"params,omitempty"`
-		Timeout      *int64              `json:"timeout,omitempty"`
-		Type         *SyntheticsStepType `json:"type,omitempty"`
+		AllowFailure *bool                   `json:"allowFailure,omitempty"`
+		Name         *string                 `json:"name,omitempty"`
+		Params       *map[string]interface{} `json:"params,omitempty"`
+		Timeout      *int64                  `json:"timeout,omitempty"`
+		Type         *SyntheticsStepType     `json:"type,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {

@@ -37,7 +37,11 @@ func (v *SyntheticsConfigVariableType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsConfigVariableType(value)
+	ev, err := NewSyntheticsConfigVariableTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

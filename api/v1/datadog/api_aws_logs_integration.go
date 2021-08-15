@@ -360,7 +360,7 @@ type apiCreateAWSLambdaARNRequest struct {
  * CreateAWSLambdaARN Add AWS Log Lambda ARN
  * Attach the Lambda ARN of the Lambda created for the Datadog-AWS log collection to your AWS account ID to enable log collection.
  */
-func (a *AWSLogsIntegrationApiService) CreateAWSLambdaARN(ctx _context.Context, body AWSAccountAndLambdaRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) CreateAWSLambdaARN(ctx _context.Context, body AWSAccountAndLambdaRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiCreateAWSLambdaARNRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -372,16 +372,16 @@ func (a *AWSLogsIntegrationApiService) CreateAWSLambdaARN(ctx _context.Context, 
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSLogsIntegrationApiService) createAWSLambdaARNExecute(r apiCreateAWSLambdaARNRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) createAWSLambdaARNExecute(r apiCreateAWSLambdaARNRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSLogsIntegrationApiService.CreateAWSLambdaARN")
@@ -515,7 +515,7 @@ type apiDeleteAWSLambdaARNRequest struct {
  * DeleteAWSLambdaARN Delete an AWS Logs integration
  * Delete a Datadog-AWS logs configuration by removing the specific Lambda ARN associated with a given AWS account.
  */
-func (a *AWSLogsIntegrationApiService) DeleteAWSLambdaARN(ctx _context.Context, body AWSAccountAndLambdaRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) DeleteAWSLambdaARN(ctx _context.Context, body AWSAccountAndLambdaRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiDeleteAWSLambdaARNRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -527,16 +527,16 @@ func (a *AWSLogsIntegrationApiService) DeleteAWSLambdaARN(ctx _context.Context, 
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSLogsIntegrationApiService) deleteAWSLambdaARNExecute(r apiDeleteAWSLambdaARNRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) deleteAWSLambdaARNExecute(r apiDeleteAWSLambdaARNRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSLogsIntegrationApiService.DeleteAWSLambdaARN")
@@ -670,7 +670,7 @@ type apiEnableAWSLogServicesRequest struct {
  * EnableAWSLogServices Enable an AWS Logs integration
  * Enable automatic log collection for a list of services. This should be run after running `CreateAWSLambdaARN` to save the configuration.
  */
-func (a *AWSLogsIntegrationApiService) EnableAWSLogServices(ctx _context.Context, body AWSLogsServicesRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) EnableAWSLogServices(ctx _context.Context, body AWSLogsServicesRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiEnableAWSLogServicesRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -682,16 +682,16 @@ func (a *AWSLogsIntegrationApiService) EnableAWSLogServices(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSLogsIntegrationApiService) enableAWSLogServicesExecute(r apiEnableAWSLogServicesRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSLogsIntegrationApiService) enableAWSLogServicesExecute(r apiEnableAWSLogServicesRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSLogsIntegrationApiService.EnableAWSLogServices")

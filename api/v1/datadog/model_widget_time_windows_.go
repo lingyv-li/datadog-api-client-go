@@ -49,7 +49,11 @@ func (v *WidgetTimeWindows) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetTimeWindows(value)
+	ev, err := NewWidgetTimeWindowsFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

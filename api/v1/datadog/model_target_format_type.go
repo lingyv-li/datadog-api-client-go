@@ -41,7 +41,11 @@ func (v *TargetFormatType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TargetFormatType(value)
+	ev, err := NewTargetFormatTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

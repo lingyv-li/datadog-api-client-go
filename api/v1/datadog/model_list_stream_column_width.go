@@ -39,7 +39,11 @@ func (v *ListStreamColumnWidth) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ListStreamColumnWidth(value)
+	ev, err := NewListStreamColumnWidthFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -35,7 +35,11 @@ func (v *ImageWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ImageWidgetDefinitionType(value)
+	ev, err := NewImageWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

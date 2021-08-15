@@ -35,7 +35,11 @@ func (v *AlertValueWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = AlertValueWidgetDefinitionType(value)
+	ev, err := NewAlertValueWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

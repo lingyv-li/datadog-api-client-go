@@ -37,7 +37,11 @@ func (v *TableWidgetCellDisplayMode) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TableWidgetCellDisplayMode(value)
+	ev, err := NewTableWidgetCellDisplayModeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

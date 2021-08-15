@@ -40,7 +40,7 @@ configuration to the existing one in your Datadog organization.
 Using the `PUT` method updates your integration configuration by replacing your
 current configuration with the new one sent to your Datadog organization.
 */
-func (a *AzureIntegrationApiService) CreateAzureIntegration(ctx _context.Context, body AzureAccount) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) CreateAzureIntegration(ctx _context.Context, body AzureAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiCreateAzureIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -52,16 +52,16 @@ func (a *AzureIntegrationApiService) CreateAzureIntegration(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AzureIntegrationApiService) createAzureIntegrationExecute(r apiCreateAzureIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) createAzureIntegrationExecute(r apiCreateAzureIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AzureIntegrationApiService.CreateAzureIntegration")
@@ -195,7 +195,7 @@ type apiDeleteAzureIntegrationRequest struct {
  * DeleteAzureIntegration Delete an Azure integration
  * Delete a given Datadog-Azure integration from your Datadog account.
  */
-func (a *AzureIntegrationApiService) DeleteAzureIntegration(ctx _context.Context, body AzureAccount) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) DeleteAzureIntegration(ctx _context.Context, body AzureAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiDeleteAzureIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -207,16 +207,16 @@ func (a *AzureIntegrationApiService) DeleteAzureIntegration(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AzureIntegrationApiService) deleteAzureIntegrationExecute(r apiDeleteAzureIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) deleteAzureIntegrationExecute(r apiDeleteAzureIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AzureIntegrationApiService.DeleteAzureIntegration")
@@ -498,7 +498,7 @@ type apiUpdateAzureHostFiltersRequest struct {
  * UpdateAzureHostFilters Update Azure integration host filters
  * Update the defined list of host filters for a given Datadog-Azure integration.
  */
-func (a *AzureIntegrationApiService) UpdateAzureHostFilters(ctx _context.Context, body AzureAccount) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) UpdateAzureHostFilters(ctx _context.Context, body AzureAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiUpdateAzureHostFiltersRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -510,16 +510,16 @@ func (a *AzureIntegrationApiService) UpdateAzureHostFilters(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AzureIntegrationApiService) updateAzureHostFiltersExecute(r apiUpdateAzureHostFiltersRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) updateAzureHostFiltersExecute(r apiUpdateAzureHostFiltersRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AzureIntegrationApiService.UpdateAzureHostFilters")
@@ -655,7 +655,7 @@ type apiUpdateAzureIntegrationRequest struct {
 Any other fields supplied will overwrite existing values. To overwrite `tenant_name` or `client_id`,
 use `new_tenant_name` and `new_client_id`. To leave a field unchanged, do not supply that field in the payload.
 */
-func (a *AzureIntegrationApiService) UpdateAzureIntegration(ctx _context.Context, body AzureAccount) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) UpdateAzureIntegration(ctx _context.Context, body AzureAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiUpdateAzureIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -667,16 +667,16 @@ func (a *AzureIntegrationApiService) UpdateAzureIntegration(ctx _context.Context
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AzureIntegrationApiService) updateAzureIntegrationExecute(r apiUpdateAzureIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AzureIntegrationApiService) updateAzureIntegrationExecute(r apiUpdateAzureIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AzureIntegrationApiService.UpdateAzureIntegration")

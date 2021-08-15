@@ -39,7 +39,11 @@ func (v *WidgetLineType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetLineType(value)
+	ev, err := NewWidgetLineTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

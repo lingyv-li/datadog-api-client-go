@@ -71,7 +71,11 @@ func (v *WidgetPalette) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetPalette(value)
+	ev, err := NewWidgetPaletteFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

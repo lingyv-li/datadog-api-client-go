@@ -35,7 +35,11 @@ func (v *LogStreamWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogStreamWidgetDefinitionType(value)
+	ev, err := NewLogStreamWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

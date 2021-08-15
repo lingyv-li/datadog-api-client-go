@@ -37,7 +37,11 @@ func (v *DashboardLayoutType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = DashboardLayoutType(value)
+	ev, err := NewDashboardLayoutTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

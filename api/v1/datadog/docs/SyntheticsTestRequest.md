@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **NoSavingResponseBody** | Pointer to **bool** | Determines whether or not to save the response body. | [optional] 
 **NumberOfPackets** | Pointer to **int32** | Number of pings to use per test. | [optional] 
 **Port** | Pointer to **int64** | Port to use when performing the test. | [optional] 
-**Query** | Pointer to **interface{}** | Query to use for the test. | [optional] 
+**Query** | Pointer to **map[string]interface{}** | Query to use for the test. | [optional] 
 **ShouldTrackHops** | Pointer to **bool** | Turns on a traceroute probe to discover all gateways along the path to the host destination. | [optional] 
 **Timeout** | Pointer to **float64** | Timeout in seconds for the test. | [optional] 
 **Url** | Pointer to **string** | URL to perform the test with. | [optional] 
@@ -342,20 +342,20 @@ HasPort returns a boolean if a field has been set.
 
 ### GetQuery
 
-`func (o *SyntheticsTestRequest) GetQuery() interface{}`
+`func (o *SyntheticsTestRequest) GetQuery() map[string]interface{}`
 
 GetQuery returns the Query field if non-nil, zero value otherwise.
 
 ### GetQueryOk
 
-`func (o *SyntheticsTestRequest) GetQueryOk() (*interface{}, bool)`
+`func (o *SyntheticsTestRequest) GetQueryOk() (*map[string]interface{}, bool)`
 
 GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetQuery
 
-`func (o *SyntheticsTestRequest) SetQuery(v interface{})`
+`func (o *SyntheticsTestRequest) SetQuery(v map[string]interface{})`
 
 SetQuery sets Query field to given value.
 

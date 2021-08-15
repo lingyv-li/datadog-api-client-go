@@ -37,7 +37,11 @@ func (v *WidgetNodeType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetNodeType(value)
+	ev, err := NewWidgetNodeTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

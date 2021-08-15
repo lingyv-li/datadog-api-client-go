@@ -43,7 +43,11 @@ func (v *TimeseriesWidgetLegendColumn) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TimeseriesWidgetLegendColumn(value)
+	ev, err := NewTimeseriesWidgetLegendColumnFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

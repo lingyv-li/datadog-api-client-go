@@ -37,7 +37,11 @@ func (v *UsageMetricCategory) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = UsageMetricCategory(value)
+	ev, err := NewUsageMetricCategoryFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

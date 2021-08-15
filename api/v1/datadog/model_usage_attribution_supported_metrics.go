@@ -91,7 +91,11 @@ func (v *UsageAttributionSupportedMetrics) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = UsageAttributionSupportedMetrics(value)
+	ev, err := NewUsageAttributionSupportedMetricsFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

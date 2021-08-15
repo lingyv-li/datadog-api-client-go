@@ -37,7 +37,11 @@ func (v *SyntheticsGlobalVariableParseTestOptionsType) UnmarshalJSON(src []byte)
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsGlobalVariableParseTestOptionsType(value)
+	ev, err := NewSyntheticsGlobalVariableParseTestOptionsTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

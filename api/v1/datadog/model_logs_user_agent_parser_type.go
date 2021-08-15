@@ -35,7 +35,11 @@ func (v *LogsUserAgentParserType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsUserAgentParserType(value)
+	ev, err := NewLogsUserAgentParserTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

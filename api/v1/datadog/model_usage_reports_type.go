@@ -35,7 +35,11 @@ func (v *UsageReportsType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = UsageReportsType(value)
+	ev, err := NewUsageReportsTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -61,7 +61,11 @@ func (v *SyntheticsAssertionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsAssertionType(value)
+	ev, err := NewSyntheticsAssertionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

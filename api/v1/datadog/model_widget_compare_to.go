@@ -41,7 +41,11 @@ func (v *WidgetCompareTo) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetCompareTo(value)
+	ev, err := NewWidgetCompareToFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

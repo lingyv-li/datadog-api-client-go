@@ -35,7 +35,11 @@ func (v *QueryValueWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = QueryValueWidgetDefinitionType(value)
+	ev, err := NewQueryValueWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

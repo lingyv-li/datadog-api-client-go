@@ -37,7 +37,11 @@ func (v *SyntheticsTestDetailsType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsTestDetailsType(value)
+	ev, err := NewSyntheticsTestDetailsTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

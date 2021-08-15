@@ -36,7 +36,7 @@ type SyntheticsTestRequest struct {
 	// Port to use when performing the test.
 	Port *int64 `json:"port,omitempty"`
 	// Query to use for the test.
-	Query *interface{} `json:"query,omitempty"`
+	Query *map[string]interface{} `json:"query,omitempty"`
 	// Turns on a traceroute probe to discover all gateways along the path to the host destination.
 	ShouldTrackHops *bool `json:"shouldTrackHops,omitempty"`
 	// Timeout in seconds for the test.
@@ -449,9 +449,9 @@ func (o *SyntheticsTestRequest) SetPort(v int64) {
 }
 
 // GetQuery returns the Query field value if set, zero value otherwise.
-func (o *SyntheticsTestRequest) GetQuery() interface{} {
+func (o *SyntheticsTestRequest) GetQuery() map[string]interface{} {
 	if o == nil || o.Query == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return *o.Query
@@ -459,7 +459,7 @@ func (o *SyntheticsTestRequest) GetQuery() interface{} {
 
 // GetQueryOk returns a tuple with the Query field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyntheticsTestRequest) GetQueryOk() (*interface{}, bool) {
+func (o *SyntheticsTestRequest) GetQueryOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Query == nil {
 		return nil, false
 	}
@@ -475,8 +475,8 @@ func (o *SyntheticsTestRequest) HasQuery() bool {
 	return false
 }
 
-// SetQuery gets a reference to the given interface{} and assigns it to the Query field.
-func (o *SyntheticsTestRequest) SetQuery(v interface{}) {
+// SetQuery gets a reference to the given map[string]interface{} and assigns it to the Query field.
+func (o *SyntheticsTestRequest) SetQuery(v map[string]interface{}) {
 	o.Query = &v
 }
 
@@ -647,7 +647,7 @@ func (o *SyntheticsTestRequest) UnmarshalJSON(bytes []byte) (err error) {
 		NoSavingResponseBody *bool                             `json:"noSavingResponseBody,omitempty"`
 		NumberOfPackets      *int32                            `json:"numberOfPackets,omitempty"`
 		Port                 *int64                            `json:"port,omitempty"`
-		Query                *interface{}                      `json:"query,omitempty"`
+		Query                *map[string]interface{}           `json:"query,omitempty"`
 		ShouldTrackHops      *bool                             `json:"shouldTrackHops,omitempty"`
 		Timeout              *float64                          `json:"timeout,omitempty"`
 		Url                  *string                           `json:"url,omitempty"`

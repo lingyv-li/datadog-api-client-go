@@ -35,7 +35,11 @@ func (v *NotebookMarkdownCellDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = NotebookMarkdownCellDefinitionType(value)
+	ev, err := NewNotebookMarkdownCellDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

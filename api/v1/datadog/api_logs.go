@@ -235,7 +235,7 @@ The status codes answered by the HTTP API are:
 - 413: Payload too large (batch is above 5MB uncompressed)
 - 5xx: Internal error, request should be retried after some time
 */
-func (a *LogsApiService) SubmitLog(ctx _context.Context, body []HTTPLogItem, o ...SubmitLogOptionalParameters) (interface{}, *_nethttp.Response, error) {
+func (a *LogsApiService) SubmitLog(ctx _context.Context, body []HTTPLogItem, o ...SubmitLogOptionalParameters) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiSubmitLogRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -243,7 +243,7 @@ func (a *LogsApiService) SubmitLog(ctx _context.Context, body []HTTPLogItem, o .
 	}
 
 	if len(o) > 1 {
-		var localVarReturnValue interface{}
+		var localVarReturnValue map[string]interface{}
 		return localVarReturnValue, nil, reportError("only one argument of type SubmitLogOptionalParameters is allowed")
 	}
 
@@ -257,16 +257,16 @@ func (a *LogsApiService) SubmitLog(ctx _context.Context, body []HTTPLogItem, o .
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *LogsApiService) submitLogExecute(r apiSubmitLogRequest) (interface{}, *_nethttp.Response, error) {
+func (a *LogsApiService) submitLogExecute(r apiSubmitLogRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogsApiService.SubmitLog")

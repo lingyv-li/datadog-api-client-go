@@ -41,7 +41,11 @@ func (v *ServiceCheckStatus) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ServiceCheckStatus(value)
+	ev, err := NewServiceCheckStatusFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

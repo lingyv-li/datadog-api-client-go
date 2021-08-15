@@ -37,7 +37,11 @@ func (v *SLOType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SLOType(value)
+	ev, err := NewSLOTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

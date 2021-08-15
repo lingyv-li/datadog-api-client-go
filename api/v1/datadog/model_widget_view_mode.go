@@ -39,7 +39,11 @@ func (v *WidgetViewMode) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetViewMode(value)
+	ev, err := NewWidgetViewModeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

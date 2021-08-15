@@ -34,7 +34,7 @@ import (
     "fmt"
     "os"
     "time"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -90,7 +90,7 @@ This endpoint does not have optional parameters.
 
 ## SubmitLog
 
-> interface{} SubmitLog(ctx, body, datadog.SubmitLogOptionalParameters{})
+> map[string]interface{} SubmitLog(ctx, body, datadog.SubmitLogOptionalParameters{})
 
 Send your logs to your Datadog platform over HTTP. Limits per HTTP request are:
 
@@ -122,7 +122,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -144,7 +144,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.SubmitLog`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `SubmitLog`: interface{}
+    // response from `SubmitLog`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from LogsApi.SubmitLog:\n%s\n", responseContent)
 }
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 

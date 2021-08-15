@@ -43,7 +43,11 @@ func (v *SyntheticsBrowserVariableType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsBrowserVariableType(value)
+	ev, err := NewSyntheticsBrowserVariableTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

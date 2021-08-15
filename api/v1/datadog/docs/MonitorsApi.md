@@ -32,7 +32,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -233,7 +233,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -303,7 +303,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -382,7 +382,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -461,7 +461,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -556,7 +556,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -639,7 +639,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -722,7 +722,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -780,7 +780,7 @@ This endpoint does not have optional parameters.
 
 ## ValidateMonitor
 
-> interface{} ValidateMonitor(ctx, body)
+> map[string]interface{} ValidateMonitor(ctx, body)
 
 Validate the monitor provided in the request.
 
@@ -794,7 +794,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -810,7 +810,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `MonitorsApi.ValidateMonitor`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ValidateMonitor`: interface{}
+    // response from `ValidateMonitor`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from MonitorsApi.ValidateMonitor:\n%s\n", responseContent)
 }
@@ -832,7 +832,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 

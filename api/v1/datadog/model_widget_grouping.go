@@ -37,7 +37,11 @@ func (v *WidgetGrouping) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetGrouping(value)
+	ev, err := NewWidgetGroupingFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

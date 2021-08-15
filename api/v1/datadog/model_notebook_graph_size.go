@@ -43,7 +43,11 @@ func (v *NotebookGraphSize) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = NotebookGraphSize(value)
+	ev, err := NewNotebookGraphSizeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

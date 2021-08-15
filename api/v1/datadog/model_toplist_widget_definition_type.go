@@ -35,7 +35,11 @@ func (v *ToplistWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ToplistWidgetDefinitionType(value)
+	ev, err := NewToplistWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -35,7 +35,11 @@ func (v *LogsGrokParserType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsGrokParserType(value)
+	ev, err := NewLogsGrokParserTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

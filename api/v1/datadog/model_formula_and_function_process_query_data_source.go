@@ -37,7 +37,11 @@ func (v *FormulaAndFunctionProcessQueryDataSource) UnmarshalJSON(src []byte) err
 	if err != nil {
 		return err
 	}
-	*v = FormulaAndFunctionProcessQueryDataSource(value)
+	ev, err := NewFormulaAndFunctionProcessQueryDataSourceFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

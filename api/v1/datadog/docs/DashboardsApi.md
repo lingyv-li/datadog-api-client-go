@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**GetDashboard**](DashboardsApi.md#GetDashboard) | **Get** /api/v1/dashboard/{dashboard_id} | Get a dashboard
 [**ListDashboards**](DashboardsApi.md#ListDashboards) | **Get** /api/v1/dashboard | Get all dashboards
 [**RestoreDashboards**](DashboardsApi.md#RestoreDashboards) | **Patch** /api/v1/dashboard | Restore deleted dashboards
+[**SearchDashboards**](DashboardsApi.md#SearchDashboards) | **Get** /api/v1/dashboard_search | Search dashboards
 [**UpdateDashboard**](DashboardsApi.md#UpdateDashboard) | **Put** /api/v1/dashboard/{dashboard_id} | Update a dashboard
 
 
@@ -31,7 +32,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -101,7 +102,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -170,7 +171,7 @@ import (
     "context"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -237,7 +238,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -310,7 +311,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -383,7 +384,7 @@ import (
     "context"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -434,6 +435,96 @@ This endpoint does not have optional parameters.
 [[Back to README]](../README.md)
 
 
+## SearchDashboards
+
+> DashboardSearchSummary SearchDashboards(ctx, start, count, datadog.SearchDashboardsOptionalParameters{})
+
+Search dashboards.
+
+**Note**: This query will only return custom created or cloned dashboards.
+This query will not return preset dashboards.
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    "os"
+    datadog ""
+)
+
+func main() {
+    ctx := datadog.NewDefaultContext(context.Background())
+
+    start := int64(789) // int64 | Dashboard result to start search from.
+    count := int64(789) // int64 | Number of dashboards to return.
+    withSuggestedtrue := true // bool | When `true`, this query only returns shared custom created or cloned dashboards. (optional)
+    query := "query_example" // string | String to filter search results. (optional)
+    sort := "sort_example" // string | String for sort order. (optional)
+    optionalParams := datadog.SearchDashboardsOptionalParameters{
+        WithSuggestedtrue: &withSuggestedtrue,
+        Query: &query,
+        Sort: &sort,
+    }
+
+    configuration := datadog.NewConfiguration()
+
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.DashboardsApi.SearchDashboards(ctx, start, count, optionalParams)
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DashboardsApi.SearchDashboards`: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SearchDashboards`: DashboardSearchSummary
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from DashboardsApi.SearchDashboards:\n%s\n", responseContent)
+}
+```
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**start** | **int64** | Dashboard result to start search from. |  |
+**count** | **int64** | Number of dashboards to return. | 
+
+
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a SearchDashboardsOptionalParameters struct.
+
+
+Name | Type | Description  | Notes
+---- | ---- | ------------ | ------
+**withSuggestedtrue** | **bool** | When &#x60;true&#x60;, this query only returns shared custom created or cloned dashboards. | 
+**query** | **string** | String to filter search results. | 
+**sort** | **string** | String for sort order. | 
+
+### Return type
+
+[**DashboardSearchSummary**](DashboardSearchSummary.md)
+
+### Authorization
+
+[apiKeyAuth](../README.md#apiKeyAuth), [appKeyAuth](../README.md#appKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateDashboard
 
 > Dashboard UpdateDashboard(ctx, dashboardId, body)
@@ -450,7 +541,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {

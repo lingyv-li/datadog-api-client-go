@@ -37,7 +37,11 @@ func (v *WidgetColorPreference) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetColorPreference(value)
+	ev, err := NewWidgetColorPreferenceFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -43,7 +43,11 @@ func (v *ScatterplotWidgetAggregator) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ScatterplotWidgetAggregator(value)
+	ev, err := NewScatterplotWidgetAggregatorFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

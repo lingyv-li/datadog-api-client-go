@@ -40,7 +40,7 @@ type SyntheticsStepDetail struct {
 	// URL to perform the step against.
 	Url *string `json:"url,omitempty"`
 	// Value for the step.
-	Value *interface{} `json:"value,omitempty"`
+	Value *map[string]interface{} `json:"value,omitempty"`
 	// Array of Core Web Vitals metrics for the step.
 	VitalsMetrics *[]SyntheticsCoreWebVitals `json:"vitalsMetrics,omitempty"`
 	// Warning collected that didn't failed the step.
@@ -515,9 +515,9 @@ func (o *SyntheticsStepDetail) SetUrl(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *SyntheticsStepDetail) GetValue() interface{} {
+func (o *SyntheticsStepDetail) GetValue() map[string]interface{} {
 	if o == nil || o.Value == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return *o.Value
@@ -525,7 +525,7 @@ func (o *SyntheticsStepDetail) GetValue() interface{} {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyntheticsStepDetail) GetValueOk() (*interface{}, bool) {
+func (o *SyntheticsStepDetail) GetValueOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Value == nil {
 		return nil, false
 	}
@@ -541,8 +541,8 @@ func (o *SyntheticsStepDetail) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given interface{} and assigns it to the Value field.
-func (o *SyntheticsStepDetail) SetValue(v interface{}) {
+// SetValue gets a reference to the given map[string]interface{} and assigns it to the Value field.
+func (o *SyntheticsStepDetail) SetValue(v map[string]interface{}) {
 	o.Value = &v
 }
 
@@ -686,7 +686,7 @@ func (o *SyntheticsStepDetail) UnmarshalJSON(bytes []byte) (err error) {
 		TimeToInteractive   *float64                       `json:"timeToInteractive,omitempty"`
 		Type                *SyntheticsStepType            `json:"type,omitempty"`
 		Url                 *string                        `json:"url,omitempty"`
-		Value               *interface{}                   `json:"value,omitempty"`
+		Value               *map[string]interface{}        `json:"value,omitempty"`
 		VitalsMetrics       *[]SyntheticsCoreWebVitals     `json:"vitalsMetrics,omitempty"`
 		Warnings            *[]SyntheticsStepDetailWarning `json:"warnings,omitempty"`
 	}{}

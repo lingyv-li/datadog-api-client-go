@@ -35,7 +35,11 @@ func (v *IFrameWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = IFrameWidgetDefinitionType(value)
+	ev, err := NewIFrameWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

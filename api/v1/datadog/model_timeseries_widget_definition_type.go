@@ -35,7 +35,11 @@ func (v *TimeseriesWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TimeseriesWidgetDefinitionType(value)
+	ev, err := NewTimeseriesWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

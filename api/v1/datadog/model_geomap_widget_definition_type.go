@@ -35,7 +35,11 @@ func (v *GeomapWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = GeomapWidgetDefinitionType(value)
+	ev, err := NewGeomapWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

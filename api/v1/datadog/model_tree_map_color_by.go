@@ -35,7 +35,11 @@ func (v *TreeMapColorBy) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TreeMapColorBy(value)
+	ev, err := NewTreeMapColorByFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

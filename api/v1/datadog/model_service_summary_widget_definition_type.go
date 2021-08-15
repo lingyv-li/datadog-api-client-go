@@ -35,7 +35,11 @@ func (v *ServiceSummaryWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ServiceSummaryWidgetDefinitionType(value)
+	ev, err := NewServiceSummaryWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

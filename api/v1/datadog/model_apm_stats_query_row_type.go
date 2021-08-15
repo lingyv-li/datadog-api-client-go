@@ -39,7 +39,11 @@ func (v *ApmStatsQueryRowType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ApmStatsQueryRowType(value)
+	ev, err := NewApmStatsQueryRowTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

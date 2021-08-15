@@ -59,7 +59,11 @@ func (v *SyntheticsAssertionOperator) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsAssertionOperator(value)
+	ev, err := NewSyntheticsAssertionOperatorFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

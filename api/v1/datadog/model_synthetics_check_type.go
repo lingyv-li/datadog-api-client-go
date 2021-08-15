@@ -61,7 +61,11 @@ func (v *SyntheticsCheckType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsCheckType(value)
+	ev, err := NewSyntheticsCheckTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

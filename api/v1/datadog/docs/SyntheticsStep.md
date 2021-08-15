@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ---- | ---- | ----------- | ------
 **AllowFailure** | Pointer to **bool** | A boolean set to allow this step to fail. | [optional] 
 **Name** | Pointer to **string** | The name of the step. | [optional] 
-**Params** | Pointer to **interface{}** | The parameters of the step. | [optional] 
+**Params** | Pointer to **map[string]interface{}** | The parameters of the step. | [optional] 
 **Timeout** | Pointer to **int64** | The time before declaring a step failed. | [optional] 
 **Type** | Pointer to [**SyntheticsStepType**](SyntheticsStepType.md) |  | [optional] 
 
@@ -81,20 +81,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetParams
 
-`func (o *SyntheticsStep) GetParams() interface{}`
+`func (o *SyntheticsStep) GetParams() map[string]interface{}`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *SyntheticsStep) GetParamsOk() (*interface{}, bool)`
+`func (o *SyntheticsStep) GetParamsOk() (*map[string]interface{}, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *SyntheticsStep) SetParams(v interface{})`
+`func (o *SyntheticsStep) SetParams(v map[string]interface{})`
 
 SetParams sets Params field to given value.
 

@@ -45,7 +45,11 @@ func (v *WidgetAggregator) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetAggregator(value)
+	ev, err := NewWidgetAggregatorFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

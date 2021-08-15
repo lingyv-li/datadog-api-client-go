@@ -57,7 +57,11 @@ func (v *FormulaAndFunctionEventAggregation) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = FormulaAndFunctionEventAggregation(value)
+	ev, err := NewFormulaAndFunctionEventAggregationFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

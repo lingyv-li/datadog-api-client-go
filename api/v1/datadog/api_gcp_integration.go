@@ -34,7 +34,7 @@ type apiCreateGCPIntegrationRequest struct {
  * CreateGCPIntegration Create a GCP integration
  * Create a Datadog-GCP integration.
  */
-func (a *GCPIntegrationApiService) CreateGCPIntegration(ctx _context.Context, body GCPAccount) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) CreateGCPIntegration(ctx _context.Context, body GCPAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiCreateGCPIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -46,16 +46,16 @@ func (a *GCPIntegrationApiService) CreateGCPIntegration(ctx _context.Context, bo
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *GCPIntegrationApiService) createGCPIntegrationExecute(r apiCreateGCPIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) createGCPIntegrationExecute(r apiCreateGCPIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GCPIntegrationApiService.CreateGCPIntegration")
@@ -189,7 +189,7 @@ type apiDeleteGCPIntegrationRequest struct {
  * DeleteGCPIntegration Delete a GCP integration
  * Delete a given Datadog-GCP integration.
  */
-func (a *GCPIntegrationApiService) DeleteGCPIntegration(ctx _context.Context, body GCPAccount) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) DeleteGCPIntegration(ctx _context.Context, body GCPAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiDeleteGCPIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -201,16 +201,16 @@ func (a *GCPIntegrationApiService) DeleteGCPIntegration(ctx _context.Context, bo
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *GCPIntegrationApiService) deleteGCPIntegrationExecute(r apiDeleteGCPIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) deleteGCPIntegrationExecute(r apiDeleteGCPIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GCPIntegrationApiService.DeleteGCPIntegration")
@@ -495,7 +495,7 @@ Requires a `project_id` and `client_email`, however these fields cannot be updat
 If you need to update these fields, delete and use the create (`POST`) endpoint.
 The unspecified fields will keep their original values.
 */
-func (a *GCPIntegrationApiService) UpdateGCPIntegration(ctx _context.Context, body GCPAccount) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) UpdateGCPIntegration(ctx _context.Context, body GCPAccount) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiUpdateGCPIntegrationRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -507,16 +507,16 @@ func (a *GCPIntegrationApiService) UpdateGCPIntegration(ctx _context.Context, bo
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *GCPIntegrationApiService) updateGCPIntegrationExecute(r apiUpdateGCPIntegrationRequest) (interface{}, *_nethttp.Response, error) {
+func (a *GCPIntegrationApiService) updateGCPIntegrationExecute(r apiUpdateGCPIntegrationRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GCPIntegrationApiService.UpdateGCPIntegration")

@@ -49,7 +49,11 @@ func (v *FormulaAndFunctionMetricAggregation) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = FormulaAndFunctionMetricAggregation(value)
+	ev, err := NewFormulaAndFunctionMetricAggregationFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

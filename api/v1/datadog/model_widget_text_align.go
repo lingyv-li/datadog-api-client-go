@@ -39,7 +39,11 @@ func (v *WidgetTextAlign) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetTextAlign(value)
+	ev, err := NewWidgetTextAlignFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

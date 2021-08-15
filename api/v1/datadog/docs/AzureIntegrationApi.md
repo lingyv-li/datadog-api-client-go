@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateAzureIntegration
 
-> interface{} CreateAzureIntegration(ctx, body)
+> map[string]interface{} CreateAzureIntegration(ctx, body)
 
 Create a Datadog-Azure integration.
 
@@ -34,7 +34,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -50,7 +50,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AzureIntegrationApi.CreateAzureIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateAzureIntegration`: interface{}
+    // response from `CreateAzureIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AzureIntegrationApi.CreateAzureIntegration:\n%s\n", responseContent)
 }
@@ -72,7 +72,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -90,7 +90,7 @@ This endpoint does not have optional parameters.
 
 ## DeleteAzureIntegration
 
-> interface{} DeleteAzureIntegration(ctx, body)
+> map[string]interface{} DeleteAzureIntegration(ctx, body)
 
 Delete a given Datadog-Azure integration from your Datadog account.
 
@@ -104,7 +104,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -120,7 +120,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AzureIntegrationApi.DeleteAzureIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteAzureIntegration`: interface{}
+    // response from `DeleteAzureIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AzureIntegrationApi.DeleteAzureIntegration:\n%s\n", responseContent)
 }
@@ -142,7 +142,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -174,7 +174,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -225,7 +225,7 @@ This endpoint does not have optional parameters.
 
 ## UpdateAzureHostFilters
 
-> interface{} UpdateAzureHostFilters(ctx, body)
+> map[string]interface{} UpdateAzureHostFilters(ctx, body)
 
 Update the defined list of host filters for a given Datadog-Azure integration.
 
@@ -239,7 +239,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -255,7 +255,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AzureIntegrationApi.UpdateAzureHostFilters`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateAzureHostFilters`: interface{}
+    // response from `UpdateAzureHostFilters`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AzureIntegrationApi.UpdateAzureHostFilters:\n%s\n", responseContent)
 }
@@ -277,7 +277,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -295,7 +295,7 @@ This endpoint does not have optional parameters.
 
 ## UpdateAzureIntegration
 
-> interface{} UpdateAzureIntegration(ctx, body)
+> map[string]interface{} UpdateAzureIntegration(ctx, body)
 
 Update a Datadog-Azure integration. Requires an existing `tenant_name` and `client_id`.
 Any other fields supplied will overwrite existing values. To overwrite `tenant_name` or `client_id`,
@@ -311,7 +311,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -327,7 +327,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AzureIntegrationApi.UpdateAzureIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateAzureIntegration`: interface{}
+    // response from `UpdateAzureIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from AzureIntegrationApi.UpdateAzureIntegration:\n%s\n", responseContent)
 }
@@ -349,7 +349,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 

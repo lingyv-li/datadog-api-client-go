@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ---- | ---- | ----------- | ------
-**Config** | Pointer to **interface{}** | Configuration skeleton for the private location. See installation instructions of the private location on how to use this configuration. | [optional] 
+**Config** | Pointer to **map[string]interface{}** | Configuration skeleton for the private location. See installation instructions of the private location on how to use this configuration. | [optional] 
 **PrivateLocation** | Pointer to [**SyntheticsPrivateLocation**](SyntheticsPrivateLocation.md) |  | [optional] 
 **ResultEncryption** | Pointer to [**SyntheticsPrivateLocationCreationResponseResultEncryption**](SyntheticsPrivateLocationCreationResponseResultEncryption.md) |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set.
 
 ### GetConfig
 
-`func (o *SyntheticsPrivateLocationCreationResponse) GetConfig() interface{}`
+`func (o *SyntheticsPrivateLocationCreationResponse) GetConfig() map[string]interface{}`
 
 GetConfig returns the Config field if non-nil, zero value otherwise.
 
 ### GetConfigOk
 
-`func (o *SyntheticsPrivateLocationCreationResponse) GetConfigOk() (*interface{}, bool)`
+`func (o *SyntheticsPrivateLocationCreationResponse) GetConfigOk() (*map[string]interface{}, bool)`
 
 GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfig
 
-`func (o *SyntheticsPrivateLocationCreationResponse) SetConfig(v interface{})`
+`func (o *SyntheticsPrivateLocationCreationResponse) SetConfig(v map[string]interface{})`
 
 SetConfig sets Config field to given value.
 

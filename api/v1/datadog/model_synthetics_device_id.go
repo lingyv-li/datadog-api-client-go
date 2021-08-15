@@ -57,7 +57,11 @@ func (v *SyntheticsDeviceID) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsDeviceID(value)
+	ev, err := NewSyntheticsDeviceIDFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

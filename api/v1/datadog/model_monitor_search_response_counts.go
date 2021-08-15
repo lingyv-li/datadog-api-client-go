@@ -15,13 +15,13 @@ import (
 // MonitorSearchResponseCounts The counts of monitors per different criteria.
 type MonitorSearchResponseCounts struct {
 	// Search facets.
-	Muted *[]interface{} `json:"muted,omitempty"`
+	Muted *[]MonitorGroupSearchResponseCountsStatus `json:"muted,omitempty"`
 	// Search facets.
-	Status *[]interface{} `json:"status,omitempty"`
+	Status *[]MonitorGroupSearchResponseCountsStatus `json:"status,omitempty"`
 	// Search facets.
-	Tag *[]interface{} `json:"tag,omitempty"`
+	Tag *[]MonitorGroupSearchResponseCountsStatus `json:"tag,omitempty"`
 	// Search facets.
-	Type *[]interface{} `json:"type,omitempty"`
+	Type *[]MonitorGroupSearchResponseCountsStatus `json:"type,omitempty"`
 	// UnparsedObject contains the raw value of the object if there was an error when deserializing into the struct
 	UnparsedObject map[string]interface{} `json:-`
 }
@@ -44,9 +44,9 @@ func NewMonitorSearchResponseCountsWithDefaults() *MonitorSearchResponseCounts {
 }
 
 // GetMuted returns the Muted field value if set, zero value otherwise.
-func (o *MonitorSearchResponseCounts) GetMuted() []interface{} {
+func (o *MonitorSearchResponseCounts) GetMuted() []MonitorGroupSearchResponseCountsStatus {
 	if o == nil || o.Muted == nil {
-		var ret []interface{}
+		var ret []MonitorGroupSearchResponseCountsStatus
 		return ret
 	}
 	return *o.Muted
@@ -54,7 +54,7 @@ func (o *MonitorSearchResponseCounts) GetMuted() []interface{} {
 
 // GetMutedOk returns a tuple with the Muted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorSearchResponseCounts) GetMutedOk() (*[]interface{}, bool) {
+func (o *MonitorSearchResponseCounts) GetMutedOk() (*[]MonitorGroupSearchResponseCountsStatus, bool) {
 	if o == nil || o.Muted == nil {
 		return nil, false
 	}
@@ -70,15 +70,15 @@ func (o *MonitorSearchResponseCounts) HasMuted() bool {
 	return false
 }
 
-// SetMuted gets a reference to the given []interface{} and assigns it to the Muted field.
-func (o *MonitorSearchResponseCounts) SetMuted(v []interface{}) {
+// SetMuted gets a reference to the given []MonitorGroupSearchResponseCountsStatus and assigns it to the Muted field.
+func (o *MonitorSearchResponseCounts) SetMuted(v []MonitorGroupSearchResponseCountsStatus) {
 	o.Muted = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *MonitorSearchResponseCounts) GetStatus() []interface{} {
+func (o *MonitorSearchResponseCounts) GetStatus() []MonitorGroupSearchResponseCountsStatus {
 	if o == nil || o.Status == nil {
-		var ret []interface{}
+		var ret []MonitorGroupSearchResponseCountsStatus
 		return ret
 	}
 	return *o.Status
@@ -86,7 +86,7 @@ func (o *MonitorSearchResponseCounts) GetStatus() []interface{} {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorSearchResponseCounts) GetStatusOk() (*[]interface{}, bool) {
+func (o *MonitorSearchResponseCounts) GetStatusOk() (*[]MonitorGroupSearchResponseCountsStatus, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
@@ -102,15 +102,15 @@ func (o *MonitorSearchResponseCounts) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given []interface{} and assigns it to the Status field.
-func (o *MonitorSearchResponseCounts) SetStatus(v []interface{}) {
+// SetStatus gets a reference to the given []MonitorGroupSearchResponseCountsStatus and assigns it to the Status field.
+func (o *MonitorSearchResponseCounts) SetStatus(v []MonitorGroupSearchResponseCountsStatus) {
 	o.Status = &v
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
-func (o *MonitorSearchResponseCounts) GetTag() []interface{} {
+func (o *MonitorSearchResponseCounts) GetTag() []MonitorGroupSearchResponseCountsStatus {
 	if o == nil || o.Tag == nil {
-		var ret []interface{}
+		var ret []MonitorGroupSearchResponseCountsStatus
 		return ret
 	}
 	return *o.Tag
@@ -118,7 +118,7 @@ func (o *MonitorSearchResponseCounts) GetTag() []interface{} {
 
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorSearchResponseCounts) GetTagOk() (*[]interface{}, bool) {
+func (o *MonitorSearchResponseCounts) GetTagOk() (*[]MonitorGroupSearchResponseCountsStatus, bool) {
 	if o == nil || o.Tag == nil {
 		return nil, false
 	}
@@ -134,15 +134,15 @@ func (o *MonitorSearchResponseCounts) HasTag() bool {
 	return false
 }
 
-// SetTag gets a reference to the given []interface{} and assigns it to the Tag field.
-func (o *MonitorSearchResponseCounts) SetTag(v []interface{}) {
+// SetTag gets a reference to the given []MonitorGroupSearchResponseCountsStatus and assigns it to the Tag field.
+func (o *MonitorSearchResponseCounts) SetTag(v []MonitorGroupSearchResponseCountsStatus) {
 	o.Tag = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *MonitorSearchResponseCounts) GetType() []interface{} {
+func (o *MonitorSearchResponseCounts) GetType() []MonitorGroupSearchResponseCountsStatus {
 	if o == nil || o.Type == nil {
-		var ret []interface{}
+		var ret []MonitorGroupSearchResponseCountsStatus
 		return ret
 	}
 	return *o.Type
@@ -150,7 +150,7 @@ func (o *MonitorSearchResponseCounts) GetType() []interface{} {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MonitorSearchResponseCounts) GetTypeOk() (*[]interface{}, bool) {
+func (o *MonitorSearchResponseCounts) GetTypeOk() (*[]MonitorGroupSearchResponseCountsStatus, bool) {
 	if o == nil || o.Type == nil {
 		return nil, false
 	}
@@ -166,8 +166,8 @@ func (o *MonitorSearchResponseCounts) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given []interface{} and assigns it to the Type field.
-func (o *MonitorSearchResponseCounts) SetType(v []interface{}) {
+// SetType gets a reference to the given []MonitorGroupSearchResponseCountsStatus and assigns it to the Type field.
+func (o *MonitorSearchResponseCounts) SetType(v []MonitorGroupSearchResponseCountsStatus) {
 	o.Type = &v
 }
 
@@ -194,10 +194,10 @@ func (o MonitorSearchResponseCounts) MarshalJSON() ([]byte, error) {
 func (o *MonitorSearchResponseCounts) UnmarshalJSON(bytes []byte) (err error) {
 	raw := map[string]interface{}{}
 	all := struct {
-		Muted  *[]interface{} `json:"muted,omitempty"`
-		Status *[]interface{} `json:"status,omitempty"`
-		Tag    *[]interface{} `json:"tag,omitempty"`
-		Type   *[]interface{} `json:"type,omitempty"`
+		Muted  *[]MonitorGroupSearchResponseCountsStatus `json:"muted,omitempty"`
+		Status *[]MonitorGroupSearchResponseCountsStatus `json:"status,omitempty"`
+		Tag    *[]MonitorGroupSearchResponseCountsStatus `json:"tag,omitempty"`
+		Type   *[]MonitorGroupSearchResponseCountsStatus `json:"type,omitempty"`
 	}{}
 	err = json.Unmarshal(bytes, &all)
 	if err != nil {

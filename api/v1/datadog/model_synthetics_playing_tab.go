@@ -43,7 +43,11 @@ func (v *SyntheticsPlayingTab) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsPlayingTab(value)
+	ev, err := NewSyntheticsPlayingTabFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

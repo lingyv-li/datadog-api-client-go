@@ -37,7 +37,11 @@ func (v *WidgetVizType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetVizType(value)
+	ev, err := NewWidgetVizTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

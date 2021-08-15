@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateGCPIntegration
 
-> interface{} CreateGCPIntegration(ctx, body)
+> map[string]interface{} CreateGCPIntegration(ctx, body)
 
 Create a Datadog-GCP integration.
 
@@ -27,7 +27,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -43,7 +43,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `GCPIntegrationApi.CreateGCPIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateGCPIntegration`: interface{}
+    // response from `CreateGCPIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from GCPIntegrationApi.CreateGCPIntegration:\n%s\n", responseContent)
 }
@@ -65,7 +65,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -83,7 +83,7 @@ This endpoint does not have optional parameters.
 
 ## DeleteGCPIntegration
 
-> interface{} DeleteGCPIntegration(ctx, body)
+> map[string]interface{} DeleteGCPIntegration(ctx, body)
 
 Delete a given Datadog-GCP integration.
 
@@ -97,7 +97,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -113,7 +113,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `GCPIntegrationApi.DeleteGCPIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteGCPIntegration`: interface{}
+    // response from `DeleteGCPIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from GCPIntegrationApi.DeleteGCPIntegration:\n%s\n", responseContent)
 }
@@ -135,7 +135,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 
@@ -167,7 +167,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -218,7 +218,7 @@ This endpoint does not have optional parameters.
 
 ## UpdateGCPIntegration
 
-> interface{} UpdateGCPIntegration(ctx, body)
+> map[string]interface{} UpdateGCPIntegration(ctx, body)
 
 Update a Datadog-GCP integrations host_filters and/or auto-mute.
 Requires a `project_id` and `client_email`, however these fields cannot be updated.
@@ -235,7 +235,7 @@ import (
     "encoding/json"
     "fmt"
     "os"
-    datadog "github.com/DataDog/datadog-api-client-go/api/v1/datadog"
+    datadog ""
 )
 
 func main() {
@@ -251,7 +251,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `GCPIntegrationApi.UpdateGCPIntegration`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateGCPIntegration`: interface{}
+    // response from `UpdateGCPIntegration`: map[string]interface{}
     responseContent, _ := json.MarshalIndent(resp, "", "  ")
     fmt.Fprintf(os.Stdout, "Response from GCPIntegrationApi.UpdateGCPIntegration:\n%s\n", responseContent)
 }
@@ -273,7 +273,7 @@ This endpoint does not have optional parameters.
 
 ### Return type
 
-**interface{}**
+**map[string]interface{}**
 
 ### Authorization
 

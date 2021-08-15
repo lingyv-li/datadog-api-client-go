@@ -35,7 +35,11 @@ func (v *NotebookStatus) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = NotebookStatus(value)
+	ev, err := NewNotebookStatusFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

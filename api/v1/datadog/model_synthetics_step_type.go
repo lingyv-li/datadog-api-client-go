@@ -83,7 +83,11 @@ func (v *SyntheticsStepType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsStepType(value)
+	ev, err := NewSyntheticsStepTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

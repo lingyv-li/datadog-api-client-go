@@ -35,7 +35,11 @@ func (v *ListStreamWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = ListStreamWidgetDefinitionType(value)
+	ev, err := NewListStreamWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

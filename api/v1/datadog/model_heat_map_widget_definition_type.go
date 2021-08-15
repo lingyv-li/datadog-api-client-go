@@ -35,7 +35,11 @@ func (v *HeatMapWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = HeatMapWidgetDefinitionType(value)
+	ev, err := NewHeatMapWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

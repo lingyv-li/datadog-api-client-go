@@ -41,7 +41,11 @@ func (v *WidgetTickEdge) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetTickEdge(value)
+	ev, err := NewWidgetTickEdgeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -57,7 +57,11 @@ func (v *MonitorType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = MonitorType(value)
+	ev, err := NewMonitorTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

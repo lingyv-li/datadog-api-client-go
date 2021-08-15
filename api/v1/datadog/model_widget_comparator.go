@@ -41,7 +41,11 @@ func (v *WidgetComparator) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = WidgetComparator(value)
+	ev, err := NewWidgetComparatorFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

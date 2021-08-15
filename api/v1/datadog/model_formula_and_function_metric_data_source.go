@@ -35,7 +35,11 @@ func (v *FormulaAndFunctionMetricDataSource) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = FormulaAndFunctionMetricDataSource(value)
+	ev, err := NewFormulaAndFunctionMetricDataSourceFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

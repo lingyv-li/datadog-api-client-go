@@ -35,7 +35,11 @@ func (v *SyntheticsAPIStepSubtype) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsAPIStepSubtype(value)
+	ev, err := NewSyntheticsAPIStepSubtypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

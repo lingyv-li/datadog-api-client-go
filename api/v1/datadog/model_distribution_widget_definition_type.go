@@ -35,7 +35,11 @@ func (v *DistributionWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = DistributionWidgetDefinitionType(value)
+	ev, err := NewDistributionWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

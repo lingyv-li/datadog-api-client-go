@@ -35,7 +35,11 @@ func (v *LogsArithmeticProcessorType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsArithmeticProcessorType(value)
+	ev, err := NewLogsArithmeticProcessorTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

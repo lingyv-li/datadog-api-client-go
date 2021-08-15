@@ -202,7 +202,7 @@ type apiCreateAWSTagFilterRequest struct {
  * CreateAWSTagFilter Set an AWS tag filter
  * Set an AWS tag filter.
  */
-func (a *AWSIntegrationApiService) CreateAWSTagFilter(ctx _context.Context, body AWSTagFilterCreateRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) CreateAWSTagFilter(ctx _context.Context, body AWSTagFilterCreateRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiCreateAWSTagFilterRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -214,16 +214,16 @@ func (a *AWSIntegrationApiService) CreateAWSTagFilter(ctx _context.Context, body
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSIntegrationApiService) createAWSTagFilterExecute(r apiCreateAWSTagFilterRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) createAWSTagFilterExecute(r apiCreateAWSTagFilterRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSIntegrationApiService.CreateAWSTagFilter")
@@ -512,7 +512,7 @@ type apiDeleteAWSAccountRequest struct {
  * DeleteAWSAccount Delete an AWS integration
  * Delete a Datadog-AWS integration matching the specified `account_id` and `role_name parameters`.
  */
-func (a *AWSIntegrationApiService) DeleteAWSAccount(ctx _context.Context, body AWSAccountDeleteRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) DeleteAWSAccount(ctx _context.Context, body AWSAccountDeleteRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiDeleteAWSAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -524,16 +524,16 @@ func (a *AWSIntegrationApiService) DeleteAWSAccount(ctx _context.Context, body A
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSIntegrationApiService) deleteAWSAccountExecute(r apiDeleteAWSAccountRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) deleteAWSAccountExecute(r apiDeleteAWSAccountRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSIntegrationApiService.DeleteAWSAccount")
@@ -677,7 +677,7 @@ type apiDeleteAWSTagFilterRequest struct {
  * DeleteAWSTagFilter Delete a tag filtering entry
  * Delete a tag filtering entry.
  */
-func (a *AWSIntegrationApiService) DeleteAWSTagFilter(ctx _context.Context, body AWSTagFilterDeleteRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) DeleteAWSTagFilter(ctx _context.Context, body AWSTagFilterDeleteRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiDeleteAWSTagFilterRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -689,16 +689,16 @@ func (a *AWSIntegrationApiService) DeleteAWSTagFilter(ctx _context.Context, body
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSIntegrationApiService) deleteAWSTagFilterExecute(r apiDeleteAWSTagFilterRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) deleteAWSTagFilterExecute(r apiDeleteAWSTagFilterRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSIntegrationApiService.DeleteAWSTagFilter")
@@ -1344,7 +1344,7 @@ func (r *UpdateAWSAccountOptionalParameters) WithAccessKeyId(accessKeyId string)
  * UpdateAWSAccount Update an AWS integration
  * Update a Datadog-Amazon Web Services integration.
  */
-func (a *AWSIntegrationApiService) UpdateAWSAccount(ctx _context.Context, body AWSAccount, o ...UpdateAWSAccountOptionalParameters) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) UpdateAWSAccount(ctx _context.Context, body AWSAccount, o ...UpdateAWSAccountOptionalParameters) (map[string]interface{}, *_nethttp.Response, error) {
 	req := apiUpdateAWSAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -1352,7 +1352,7 @@ func (a *AWSIntegrationApiService) UpdateAWSAccount(ctx _context.Context, body A
 	}
 
 	if len(o) > 1 {
-		var localVarReturnValue interface{}
+		var localVarReturnValue map[string]interface{}
 		return localVarReturnValue, nil, reportError("only one argument of type UpdateAWSAccountOptionalParameters is allowed")
 	}
 
@@ -1367,16 +1367,16 @@ func (a *AWSIntegrationApiService) UpdateAWSAccount(ctx _context.Context, body A
 
 /*
  * Execute executes the request
- * @return interface{}
+ * @return map[string]interface{}
  */
-func (a *AWSIntegrationApiService) updateAWSAccountExecute(r apiUpdateAWSAccountRequest) (interface{}, *_nethttp.Response, error) {
+func (a *AWSIntegrationApiService) updateAWSAccountExecute(r apiUpdateAWSAccountRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  interface{}
+		localVarReturnValue  map[string]interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AWSIntegrationApiService.UpdateAWSAccount")

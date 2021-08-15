@@ -35,7 +35,11 @@ func (v *TableWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = TableWidgetDefinitionType(value)
+	ev, err := NewTableWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -37,7 +37,11 @@ func (v *LogsSort) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = LogsSort(value)
+	ev, err := NewLogsSortFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -47,7 +47,11 @@ func (v *MonitorOverallStates) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = MonitorOverallStates(value)
+	ev, err := NewMonitorOverallStatesFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

@@ -47,7 +47,11 @@ func (v *SyntheticsErrorCode) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = SyntheticsErrorCode(value)
+	ev, err := NewSyntheticsErrorCodeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 

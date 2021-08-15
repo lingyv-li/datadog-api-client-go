@@ -35,7 +35,11 @@ func (v *MonitorSummaryWidgetDefinitionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	*v = MonitorSummaryWidgetDefinitionType(value)
+	ev, err := NewMonitorSummaryWidgetDefinitionTypeFromValue(value)
+	if err != nil {
+		return err
+	}
+	*v = *ev
 	return nil
 }
 
